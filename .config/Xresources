@@ -1,0 +1,63 @@
+! scrolling 
+URxvt.scrollBar: false
+URxvt*scrollTtyOutput: false
+URxvt*scrollTtyKeypress: true
+URxvt*scrollWithBuffer: true
+
+! cursor config
+URxvt.cursorBlink: true
+!URxvt.cursorUnderline: true
+
+! font config
+URxvt*font:	xft:Iosevka:size=10
+
+! URLs
+URxvt.perl-ext: default,url-select
+URxvt.keysym.M-m: perl:url-select:select_next
+URxvt.url-select.launcher: /usr/bin/firefox
+URxvt.url-select.underline: true
+
+! keyboard select
+URxvt.perl-ext-common: ...,keyboard-select
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+
+*.foreground:   #ffffff
+*.background:   #312e73
+*.cursorColor:  #ffffff
+
+*.color0:       #312e73
+*.color8:       #ffffff
+
+*.color1:       #cf535f
+*.color9:       #cf535f
+
+*.color2:       #128d8d
+*.color10:      #128d8d
+
+*.color3:       #e52035
+*.color11:      #e52035
+
+*.color4:       #d5cb7a
+*.color12:      #d5cb7a
+
+*.color5:       #fcf17d
+*.color13:      #fcf17d
+
+*.color6:       #37a7d8
+*.color14:      #37a7d8
+
+*.color7:       #38c5f3
+*.color15:      #38c5f3
+
+! rofi config
+rofi.color-enabled: true
+rofi.color-window: #312e73, #fcf17d, #fcf17d
+rofi.color-normal: #312e73, #ffffff, #312e73, #312e73, #128d8d
+rofi.color-active: #312e73, #37a7d8, #312e73, #312e73, #38c5f3
+rofi.color-urgent: #312e73, #cf535f, #312e73, #312e73, #e52035
+rofi.separator-style: solid
+rofi.font: Inconsolata 14
+rofi.bw: 4
+rofi.hide-scrollbar: true
+rofi.terminal: urxvt
+rofi.lines: 5
