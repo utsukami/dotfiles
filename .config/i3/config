@@ -73,11 +73,6 @@ $bsym $mod+Control+1 $shx $cbp/monl.sh
 $bsym $mod+Control+2 $shx $cbp/monr.sh
 $bsym $mod+Control+3 $shx $cbp/dmon.sh
 
-# gyzao
-
-#$bcod $mod+30 $exe xdotool type #'od zrlyzcmigp[ojp..bodryzcmigp[ojp..bodryvod'
-$bcod $mod+30 $shx ~/imgur-screenshot/imgur-screenshot.sh
-
 # lock
 $bsym $mod+Control+Delete $shx $cbp/lock.sh
 
