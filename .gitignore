@@ -1,5 +1,5 @@
 .z*
-.[betXisopvw]*
+.[betXisopw]*
 *[slai]/
 .cache/
 .config/[adghmnprs]*/
@@ -8,4 +8,5 @@ code/bash/.tmp/
 .gitconfig
 .gitignore.swp
 .gnupg/
+.viminfo
 [jr]*
