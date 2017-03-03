@@ -1,0 +1,5 @@
+if [[ "$(xdotool getwindowfocus getwindowname)" == "OSBuddy Pro"* ]]; then
+	$(xdotool key F4);
+else
+	$(xdotool key alt+0);
+fi
