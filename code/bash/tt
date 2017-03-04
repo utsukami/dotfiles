@@ -1,0 +1,1 @@
+while :; do xdotool click --delay 40 1; done
