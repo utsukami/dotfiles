@@ -207,7 +207,7 @@ $bcod 11 $shx $xdo/2
 $bcod Shift+11 $shx $xdo/2
 $bcod 12 $shx $xdo/3
 $bcod Shift+12 $shx $xdo/3
-$codr 13 $shx $xdo/4
+#$codr 13 $shx $xdo/4
 $codr 14 $shx $xdo/5
 
 # keys ' , . p 
