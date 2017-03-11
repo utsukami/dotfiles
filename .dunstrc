@@ -1,12 +1,11 @@
 [global]
-    font = "Inconsolata 10"
+    font = "Iosevka 10"
     allow_markup = yes
     format = "<b>%s %p</b>\n%b"
     sort = yes
     indicate_hidden = true
-    # geometry = "x5"
     idle_threshold = 0
-    geometry = "300x5-20+20"
+    geometry = "200x5-6+30"
     alignment = center
     show_age_threshold = 60
     sticky_history = yes
@@ -20,8 +19,8 @@
     startup_notification = true
 
 [frame]
-    width = 3
-    color = "#000000"
+    width = 4
+    color = "#e52035"
 
 [urgency_low]
     background = "#ffffff"
@@ -29,8 +28,8 @@
     timeout = 3
 
 [urgency_normal]
-    background = "#94DBFF"
-    foreground = "#000000"
+    background = "#27245C"
+    foreground = "#ffffff"
     timeout = 5
 
 [urgency_critical]
