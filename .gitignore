@@ -2,7 +2,7 @@
 .[abetXisopw]*
 *[slai]/
 .cache/
-.config/[adghmnprs]*/
+.config/[adghmnprst]*/
 .config/*.*
 code/bash/.tmp/
 .gitconfig

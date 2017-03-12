@@ -219,7 +219,7 @@ $codr 27 $shx $xdo/p
 # keys y u spacebar
 #$bcod 28 $shx $xdo/y
 #$bcod 41 $shx $xdo/u
-#$bcod 65 $shx $xdo/s
+$bcod 65 $shx $xdo/3
 
 # keys a o e 
 $bcod 38 $shx $xdo/1
