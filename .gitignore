@@ -5,6 +5,7 @@
 .config/[adghmnprst]*/
 .config/*.*
 code/bash/.tmp/
+code/bash/auto.sh
 .gitconfig
 .gitignore.swp
 .gnupg/
