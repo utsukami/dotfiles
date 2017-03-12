@@ -40,7 +40,7 @@ def get_tida():
     ti = time.strftime('%H:%M')
     da = time.strftime('%m/%d/%Y')
 
-    return ('%{{+u}}%{{r}}%{{U{}}}%{{F{}}}'.format(dat_color, hil_color, hil_color) + ti + ' ' + da + '%{-u}' + ' ' + '%{F-}%{U-}')
+    return ('%{{r}}%{{U{}}}%{{F{}}}'.format(dat_color, hil_color, hil_color) + ti + ' ' + da + ' ' + '%{F-}%{U-}')
 
 def get_focw():
     foc_win = i3.get_tree().find_focused()
