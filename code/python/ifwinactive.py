@@ -10,7 +10,7 @@ def get_window():
 	return name.name
 
 while True:
-	time.sleep(0.2)
+	time.sleep(0.1)
 	
 	if 'OSBuddy' in get_window() and i != 1:
 		Popen('xdotool key alt+0', shell=True)
