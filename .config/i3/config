@@ -26,7 +26,7 @@ $FIN	$bgb $bgb $whi $bgb $bgb
 
 # execs/paths
 set $xdo $HOME/code/bash/xdo
-set $cbp $HOME/code/bash/
+set $cbp $HOME/code/bash
 set $exe exec
 set $shx exec sh
 set $nsi exec --no-startup-id
@@ -56,13 +56,14 @@ set $ws9 9
 ## Startup
 
 # bar
-$exa sh $cbp/bar.sh
+$exa $cbp/bar.sh
 
 # game
-$exe rs
+$exe osbuddy
 
 # misc
 $nsi sh $cbp/startup.sh
+$nsi sh $cbp/mouse.sh
 
 ## End Startup
 
@@ -197,7 +198,7 @@ assign [class="(?i)steam"]   $ws4
 # enter modes
 $bcod $mod+19 mode "osrs"
 $bcod 49 mode "osrs"
-#$bcod 49 mode "jad"
+$bcod $mod+29 mode "jad"
 $bcod $mod+40 mode "resize"
 
 # AHK outside of mode osrs for now
@@ -207,7 +208,7 @@ $bcod 11 $shx $xdo/2
 $bcod Shift+11 $shx $xdo/2
 $bcod 12 $shx $xdo/3
 $bcod Shift+12 $shx $xdo/3
-#$codr 13 $shx $xdo/4
+$codr 13 $shx $xdo/4
 $codr 14 $shx $xdo/5
 
 # keys ' , . p 
@@ -219,7 +220,7 @@ $codr 27 $shx $xdo/p
 # keys y u spacebar
 #$bcod 28 $shx $xdo/y
 #$bcod 41 $shx $xdo/u
-$bcod 65 $shx $xdo/3
+#$bcod 65 $shx $xdo/3
 
 # keys a o e 
 $bcod 38 $shx $xdo/1
@@ -300,7 +301,7 @@ mode "jad" {
 	$codr 11 $exe xdotool key Escape
 	$codr 12 $exe xdotool key F5
 	
-	$bcod 49 mode "default"
+	$bcod $mod+29 mode "default"
 }
 
 mode "resize" {
