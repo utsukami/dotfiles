@@ -22,6 +22,10 @@
     width = 4
     color = "#e52035"
 
+[play_sound]
+	summary = "*"
+	script = /home/kokkue/code/bash/alert.sh
+
 [urgency_low]
     background = "#ffffff"
     foreground = "#000000"
@@ -30,7 +34,7 @@
 [urgency_normal]
     background = "#27245C"
     foreground = "#ffffff"
-    timeout = 7
+    timeout = 5
 
 [urgency_critical]
     background = "#ff9999"
