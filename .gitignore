@@ -1,8 +1,8 @@
 .z*
-.[abegtXisopw]*
-*[slai]/
+.[abegtXinsopw]*
+*[ails]/
 .cache/
-.config/[adghmnprst]*/
+.config/[adDghmnprsSt]*/
 .config/*.*
 code/bash/.tmp/
 code/bash/auto.sh
@@ -10,4 +10,4 @@ code/bash/auto.sh
 .gitignore.swp
 .gnupg/
 .viminfo
-[sjr]*
+[Psjr]*

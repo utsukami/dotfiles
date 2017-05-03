@@ -196,26 +196,26 @@ assign [class="(?i)steam"]   $ws4
 ## Modes/AHK
 
 # enter modes
-$bcod $mod+19 mode "osrs"
-$bcod 49 mode "osrs"
-$bcod $mod+29 mode "jad"
+#$bcod $mod+19 mode "osrs"
+#$bcod 49 mode "osrs"
+#$bcod $mod+29 mode "jad"
 $bcod $mod+40 mode "resize"
 
 # AHK outside of mode osrs for now
 # keys 1 2 3 4 5
-$bcod 10 $shx $xdo/1
-$bcod 11 $shx $xdo/2
-$bcod Shift+11 $shx $xdo/2
-$bcod 12 $shx $xdo/3
-$bcod Shift+12 $shx $xdo/3
-$codr 13 $shx $xdo/4
-$codr 14 $shx $xdo/5
-
-# keys ' , . p 
-$bcod 24 $shx $xdo/1
-$bcod 25 $shx $xdo/c
-$bcod 26 $shx $xdo/3
-$codr 27 $shx $xdo/p
+#$bcod 10 $shx $xdo/1
+#$bcod 11 $shx $xdo/2
+#$bcod Shift+11 $shx $xdo/2
+#$bcod 12 $shx $xdo/3
+#$bcod Shift+12 $shx $xdo/3
+#$codr 13 $shx $xdo/4
+#$codr 14 $shx $xdo/5
+#
+## keys ' , . p 
+#$bcod 24 $shx $xdo/1
+#$bcod 25 $shx $xdo/c
+#$bcod 26 $shx $xdo/3
+#$codr 27 $shx $xdo/p
 
 # keys y u spacebar
 #$bcod 28 $shx $xdo/y
@@ -223,9 +223,9 @@ $codr 27 $shx $xdo/p
 #$bcod 65 $shx $xdo/3
 
 # keys a o e 
-$bcod 38 $shx $xdo/1
-$bcod 39 $shx $xdo/o
-$bcod 40 $shx $xdo/3
+#$bcod 38 $shx $xdo/1
+#$bcod 39 $shx $xdo/o
+#$bcod 40 $shx $xdo/3
 
 # modes
 mode "osrs" {
