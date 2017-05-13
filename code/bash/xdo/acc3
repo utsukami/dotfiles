@@ -1,3 +1,0 @@
-PID=4989
-
-for x in $(xdotool search --pid $PID); do xdotool mousemove --window $x 375 250; done
