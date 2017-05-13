@@ -6,6 +6,7 @@
 .config/*.*
 code/bash/.tmp/
 code/bash/auto.sh
+code/bash/xdo/acc[123]
 .gitconfig
 .gitignore.swp
 .gnupg/
