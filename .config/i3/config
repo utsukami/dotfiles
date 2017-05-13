@@ -197,16 +197,24 @@ assign [class="(?i)steam"]   $ws4
 
 # enter modes
 #$bcod $mod+19 mode "osrs"
-#$bcod 49 mode "osrs"
+$bcod 49 mode "osrs"
 #$bcod $mod+29 mode "jad"
 $bcod $mod+40 mode "resize"
+$bsym $mod+Left $exe xdotool mousemove_relative -- -850 -0
+$bsym $mod+Right $exe xdotool mousemove_relative 850 0
+$bsym $mod+Down $exe xdotool mousemove_relative 0 500
+$bsym $mod+Up $exe xdotool mousemove_relative -- -0 -500
 
 # AHK outside of mode osrs for now
 # keys 1 2 3 4 5
-#$bcod 10 $shx $xdo/1
-#$bcod 11 $shx $xdo/2
+$bcod 10 $shx $xdo/acc1
+$bcod 11 $shx $xdo/acc2
+$bcod 12 $shx $xdo/acc3
+$bcod 13 $shx $xdo/phne
+#$bcod 10 $shx $xdo/acc1
+#$bcod 11 $shx $xdo/acc2
 #$bcod Shift+11 $shx $xdo/2
-#$bcod 12 $shx $xdo/3
+#$bcod 12 $shx $xdo/acc3
 #$bcod Shift+12 $shx $xdo/3
 #$codr 13 $shx $xdo/4
 #$codr 14 $shx $xdo/5
@@ -301,7 +309,7 @@ mode "jad" {
 	$codr 11 $exe xdotool key Escape
 	$codr 12 $exe xdotool key F5
 	
-	$bcod $mod+29 mode "default"
+	$bcod 49 mode "default"
 }
 
 mode "resize" {
