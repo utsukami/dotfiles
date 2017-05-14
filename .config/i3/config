@@ -210,7 +210,7 @@ $bsym $mod+Up $exe xdotool mousemove_relative -- -0 -500
 $bcod 10 $shx $xdo/acc1
 $bcod 11 $shx $xdo/acc2
 $bcod 12 $shx $xdo/acc3
-$bcod 13 $shx $xdo/phne
+$bcod 13 $shx $xdo/acc4
 #$bcod 10 $shx $xdo/acc1
 #$bcod 11 $shx $xdo/acc2
 #$bcod Shift+11 $shx $xdo/2
