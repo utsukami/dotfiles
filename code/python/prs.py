@@ -11,11 +11,12 @@ try:
 	notw = ( 71, 72, 79, 80, 87, 88, 89, 90, 91, 92 )
 	
 	# All US worlds.
-	usaw = [ list(range(5, 8)),   list(range(13, 16)), 
-			 list(range(19, 25)), list(range(29, 33)),
-			 list(range(37, 41)), list(range(45, 49)), 
-			 list(range(53, 58)), list(range(61, 63)), 
-			 list(range(69, 71)), list(range(77, 79))
+	usaw = [ 
+		list(range(5, 8)),   list(range(13, 16)), 
+		list(range(19, 25)), list(range(29, 33)),
+		list(range(37, 41)), list(range(45, 49)), 
+		list(range(53, 58)), list(range(61, 63)), 
+		list(range(69, 71)), list(range(77, 79))
 	]
 
 	# Get world number to ping, or select ping all US worlds.
