@@ -1,6 +1,4 @@
 nitrogen --restore; 
-xset s 600 600 && xset -b; 
+xset s 600 600 && xset -b && xset m 1/2;
 rm $HOME/.serverauth*;
-xset m 1/2 && xinput set-prop 12 283 10;
 dunst -config $HOME/.config/.dunstrc;
-sh discord;

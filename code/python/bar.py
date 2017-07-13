@@ -1,8 +1,8 @@
 import i3ipc, time, re
 
-urg_color = '#e52035'
+urg_color = '#d56669'
 nor_color = '#cccccc'
-foc_color = '#FCF17D'
+foc_color = '#ffffff'
 hil_color = '#FFFFFF'
 dat_color = '#38C5F3'
 

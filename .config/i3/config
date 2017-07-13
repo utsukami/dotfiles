@@ -10,17 +10,15 @@ set $URG client.urgent
 set $FIN client.focused_inactive
 
 # colors from xresources
-set_from_resource $pur color0
-set_from_resource $whi color8
-set_from_resource $red color11
-set_from_resource $yel color13
+set_from_resource $red color9
 
 # custom color
-set $bgb "#27245C"
+set $whi "#2679DB"
+set $bgb "#000000"
 
 # window colors
-$FOC	$yel $yel $whi $yel $yel
-$URG	$red $red $whi $red $red
+$FOC	$whi $whi $whi $whi $whi
+$URG	$red $red $red $red $red
 $UNF	$bgb $bgb $whi $bgb $bgb
 $FIN	$bgb $bgb $whi $bgb $bgb
 
@@ -64,15 +62,18 @@ $exe osbuddy
 # misc
 $nsi sh $cbp/startup.sh
 $nsi sh $cbp/mouse.sh
-
+$exe discord
+$exe i3-msg "workspace 2; append_layout ~/.config/i3/wp2.json"
+$exe google-chrome-stable
+$exe pavucontrol
 ## End Startup
 
 ## Scripts
 
 # monitors 
-$bsym $mod+Control+1 $shx $cbp/monl.sh 
-$bsym $mod+Control+2 $shx $cbp/monr.sh
-$bsym $mod+Control+3 $shx $cbp/dmon.sh
+#$bsym $mod+Control+1 $shx $cbp/monl.sh 
+#$bsym $mod+Control+2 $shx $cbp/monr.sh
+#$bsym $mod+Control+3 $shx $cbp/dmon.sh
 
 # lock
 $bsym $mod+Control+Delete $shx $cbp/lock.sh
@@ -144,7 +145,7 @@ $bsym $mod+Control+l move right 50 px
 
 # start programs 
 $bsym $mod+F1 $exe firefox
-$bsym $mod+F2 $exe google-chrome-beta
+$bsym $mod+F2 $exe google-chrome-stable
 $bsym $mod+F3 $exe discord
 $bsym $mod+F4 $exe osbuddy
 $bsym $mod+F5 $exe steam
@@ -153,7 +154,9 @@ $bsym $mod+F5 $exe steam
 $fwin [class="^.*"] border pixel 4
 $fwin [class="Steam" title="(?i)"] floating enable 
 $fwin [class="(?i)OSBuddy" title="(?i)"] floating enable
+$fwin [class="(?i)RuneLoader" title="(?i)"] floating enable
 $fwin [class="TeamSpeak 3" title="(?i)"] floating enable
+$fwin [class="Google-chrome" title="Z958"] floating enable
 focus_on_window_activation none
 no_focus [window_role="pop-up"]
 
@@ -190,117 +193,70 @@ assign [class="(?i)firefox"] $ws2
 assign [class="(?i)chrome"]  $ws2
 assign [class="(?i)discord"] $ws3
 assign [class="(?i)steam"]   $ws4
-
+assign [class="(?i)RocketLeague"] $ws5
 ## End Workspaces
 
 ## Modes/AHK
 
 # enter modes
-#$bcod $mod+19 mode "osrs"
-$bcod 49 mode "osrs"
-#$bcod $mod+29 mode "jad"
+$bsym $mod+Control+1 mode "jad"
+$bsym $mod+Control+2 mode "ahk"
+$bsym $mod+Control+3 mode "alt"
 $bcod $mod+40 mode "resize"
+
 $bsym $mod+Left $exe xdotool mousemove_relative -- -850 -0
 $bsym $mod+Right $exe xdotool mousemove_relative 850 0
 $bsym $mod+Down $exe xdotool mousemove_relative 0 500
 $bsym $mod+Up $exe xdotool mousemove_relative -- -0 -500
 
-# AHK outside of mode osrs for now
-# keys 1 2 3 4 5
-$bcod 10 $shx $xdo/acc1
-$bcod 11 $shx $xdo/acc2
-$bcod 12 $shx $xdo/acc3
-$bcod 13 $shx $xdo/acc4
-#$bcod 10 $shx $xdo/acc1
-#$bcod 11 $shx $xdo/acc2
-#$bcod Shift+11 $shx $xdo/2
-#$bcod 12 $shx $xdo/acc3
-#$bcod Shift+12 $shx $xdo/3
-#$codr 13 $shx $xdo/4
-#$codr 14 $shx $xdo/5
-#
-## keys ' , . p 
-#$bcod 24 $shx $xdo/1
-#$bcod 25 $shx $xdo/c
-#$bcod 26 $shx $xdo/3
-#$codr 27 $shx $xdo/p
-
-# keys y u spacebar
-#$bcod 28 $shx $xdo/y
-#$bcod 41 $shx $xdo/u
-#$bcod 65 $shx $xdo/3
-
-# keys a o e 
-#$bcod 38 $shx $xdo/1
-#$bcod 39 $shx $xdo/o
-#$bcod 40 $shx $xdo/3
-
 # modes
-mode "osrs" {
-	$bsym $mod+1 workspace $ws1
-	$bsym $mod+2 workspace $ws2
-	$bsym $mod+3 workspace $ws3
-	$bsym $mod+4 workspace $ws4
-	$bsym $mod+5 workspace $ws5
-	$bsym $mod+6 workspace $ws6
-	$bsym $mod+7 workspace $ws7
-	$bsym $mod+8 workspace $ws8
-	$bsym $mod+9 workspace $ws9
-	$bsym $mod+Tab workspace back_and_forth
+mode "ahk" {
+	# keys 1 2 3 4 5
+	$bcod 10 $shx $xdo/1
+	$bcod 11 $shx $xdo/2
+	$bcod Shift+11 $shx $xdo/2
+	$bcod 12 $shx $xdo/3
+	$bcod Shift+12 $shx $xdo/3
+	$codr 13 $shx $xdo/4
+	$codr 14 $shx $xdo/5
 	
-	$bsym $mod+Shift+1 move container to workspace $ws1
-	$bsym $mod+Shift+2 move container to workspace $ws2
-	$bsym $mod+Shift+3 move container to workspace $ws3
-	$bsym $mod+Shift+4 move container to workspace $ws4
-	$bsym $mod+Shift+5 move container to workspace $ws5
-	$bsym $mod+Shift+6 move container to workspace $ws6
-	$bsym $mod+Shift+7 move container to workspace $ws7
-	$bsym $mod+Shift+8 move container to workspace $ws8
-	$bsym $mod+Shift+9 move container to workspace $ws9
+	# keys ' , . p 
+	$bcod 24 $shx $xdo/1
+	$bcod 25 $shx $xdo/c
+	$bcod 26 $shx $xdo/3
+	$codr 27 $shx $xdo/p
 	
-	$bsym $mod+h focus left
-	$bsym $mod+j focus down
-	$bsym $mod+k focus up
-	$bsym $mod+l focus right
+	# keys y u spacebar
+	$bcod 28 $shx $xdo/y
+	$bcod 41 $shx $xdo/u
 	
-	$bsym $mod+Shift+H move left
-	$bsym $mod+Shift+J move down
-	$bsym $mod+Shift+K move up
-	$bsym $mod+Shift+L move right
-	
-	$bsym $mod+Control+h move left 50 px
-	$bsym $mod+Control+j move down 50 px
-	$bsym $mod+Control+k move up 50 px
-	$bsym $mod+Control+l move right 50 px
+	# keys a o e 
+	$bcod 38 $shx $xdo/acc1
+	$bcod 39 $shx $xdo/acc2
+	$bcod 40 $shx $xdo/acc3
 
-	$bcod $mod+30 $shx /opt/imgur-screenshot/imgur-screenshot.sh
-	$bsym $mod+Control+Delete $shx $cbp/lock.sh
-	$bsym $mod+Return $exe urxvt
-
-	$bsym $mod+Shift+space floating toggle
-
-	$bcod $mod+41 $exe rofi -show run
-	$bsym $mod+Shift+u kill
-	
-	$bsym $mod+F1 $exe firefox
-	$bsym $mod+F2 $exe google-chrome-beta
-	$bsym $mod+F3 $exe discord
-	$bsym $mod+F4 $exe rs
-	$bsym $mod+F5 $exe steam
-
-	$bsym $mod+w split h
-	$bsym $mod+v split v
-
-	$bsym $mod+i fullscreen toggle
-
-	$bsym $mod+c layout tabbed
-	$bcod $mod+32 layout toggle split
-
-	$bsym $mod+Shift+space floating toggle
-	$bsym $mod+space focus mode_toggle
-
-	$bcod $mod+19 mode "default"
 	$bcod 49 mode "default"
+	$bsym $mod+Control+2 mode "default"
+	$bsym $mod+Shift+P restart
+}
+
+mode "alt" {
+	# client teleports	
+	$bcod 10 $shx $xdo/acc1
+	$bcod 11 $shx $xdo/acc2
+	$bcod 12 $shx $xdo/acc3
+	$bcod 13 $shx $xdo/acc4
+	
+	# tt autoclicker
+	$bcod $mod+49 $shx $cbp/tt.sh
+	$bcod Shift+49 $shx $cbp/ktta.sh
+	
+	# autoclicker
+	$bcod 41 $shx $cbp/dk.sh
+	$bcod 44 $shx $cbp/darts.sh
+
+	$bcod 49 mode "default"
+	$bsym $mod+Control+3 mode "default"
 	$bsym $mod+Shift+P restart
 }
 
@@ -308,8 +264,10 @@ mode "jad" {
 	$codr 10 $exe xdotool key F1
 	$codr 11 $exe xdotool key Escape
 	$codr 12 $exe xdotool key F5
-	
+	$codr 13 $exe xdotool key F6	
+
 	$bcod 49 mode "default"
+	$bsym $mod+Control+1 mode "default"
 }
 
 mode "resize" {

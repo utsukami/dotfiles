@@ -15,10 +15,11 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export EDITOR=vim
+export PATH="$HOME/bin:$PATH"
 alias pacman='sudo pacman'
 alias ..='cd ..'
 alias ...='cd ../..'
-alias svim='sudo vim'
+alias svim='sudoedit'
 alias reboot='sudo reboot'
 alias dispatch-conf='sudo dispatch-conf'
 alias vpno='sudo systemctl start openvpn-client@US_East.service'

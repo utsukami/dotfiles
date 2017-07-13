@@ -18,7 +18,8 @@ try:
 		list(range(53, 58)), list(range(61, 63)), 
 		list(range(69, 71)), list(range(77, 79))
 	]
-
+	
+	print(usaw)
 	# Get world number to ping, or select ping all US worlds.
 	get_num = int(input('[1]: Ping all\n[2]: Single world\nEnter: '))
     
