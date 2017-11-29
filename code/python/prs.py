@@ -8,7 +8,7 @@ try:
 	
 	# Runescape worlds as of 04/20/2017. We don't include F2P worlds.
 	# These aren't worlds, or will be in the future.
-	notw = ( 71, 72, 79, 80, 87, 88, 89, 90, 91, 92 )
+	notw = ( 71, 72, 79, 80 )
 	
 	# All US worlds.
 	usaw = [ 
@@ -19,7 +19,6 @@ try:
 		list(range(69, 71)), list(range(77, 79))
 	]
 	
-	print(usaw)
 	# Get world number to ping, or select ping all US worlds.
 	get_num = int(input('[1]: Ping all\n[2]: Single world\nEnter: '))
     
