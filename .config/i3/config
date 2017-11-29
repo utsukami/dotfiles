@@ -13,8 +13,8 @@ set $FIN client.focused_inactive
 set_from_resource $red color9
 
 # custom color
-set $whi "#2679DB"
-set $bgb "#000000"
+set $whi "#0194ca"
+set $bgb "#383C4A"
 
 # window colors
 $FOC	$whi $whi $whi $whi $whi
@@ -57,7 +57,7 @@ set $ws9 9
 $exa $cbp/bar.sh
 
 # game
-$exe osbuddy
+$exe java -jar $HOME/games/rs/OSBuddy.jar 
 
 # misc
 $nsi sh $cbp/startup.sh
@@ -86,7 +86,8 @@ $bsym $mod+Control+Delete $shx $cbp/lock.sh
 font pango:Inconsolata 20
 
 # launcher
-$bcod $mod+41 $exe rofi -show run
+$bcod $mod+41 $exe rofi -show run;
+#rofi -modi "run,slmpv:/home/kokkue/code/bash/slmpv.sh" -show run
 
 # fullscreen mode
 $bsym $mod+i fullscreen toggle
@@ -147,7 +148,7 @@ $bsym $mod+Control+l move right 50 px
 $bsym $mod+F1 $exe firefox
 $bsym $mod+F2 $exe google-chrome-stable
 $bsym $mod+F3 $exe discord
-$bsym $mod+F4 $exe osbuddy
+$bsym $mod+F4 $exe java -jar $HOME/games/rs/OSBuddy.jar
 $bsym $mod+F5 $exe steam
 
 # border/window behavior 
@@ -157,8 +158,11 @@ $fwin [class="(?i)OSBuddy" title="(?i)"] floating enable
 $fwin [class="(?i)RuneLoader" title="(?i)"] floating enable
 $fwin [class="TeamSpeak 3" title="(?i)"] floating enable
 $fwin [class="Google-chrome" title="Z958"] floating enable
+$fwin [class="mpv" title="(?i)"] floating enable 
+$fwin [class="discord" title="(?i)"] floating enable
+$fwin [class="Genymotion" title="Genymotion for personal use"] floating enable
 focus_on_window_activation none
-no_focus [window_role="pop-up"]
+no_focus [window_role="(?i)"]
 
 ## End Misc.
 
@@ -208,6 +212,9 @@ $bsym $mod+Left $exe xdotool mousemove_relative -- -850 -0
 $bsym $mod+Right $exe xdotool mousemove_relative 850 0
 $bsym $mod+Down $exe xdotool mousemove_relative 0 500
 $bsym $mod+Up $exe xdotool mousemove_relative -- -0 -500
+
+$codr $mod+45 $shx $cbp/git_bot.sh
+$bcod $mod+Control+53 $shx $cbp/kgh.sh
 
 # modes
 mode "ahk" {
@@ -286,3 +293,4 @@ mode "resize" {
 }
 
 ## End Modes/AHK
+

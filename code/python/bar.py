@@ -1,7 +1,7 @@
 import i3ipc, time, re
 
 urg_color = '#d56669'
-nor_color = '#cccccc'
+nor_color = '#ffffff'
 foc_color = '#ffffff'
 hil_color = '#FFFFFF'
 dat_color = '#38C5F3'
@@ -42,14 +42,14 @@ def get_tida():
 
     return ('%{{r}}%{{U{}}}%{{F{}}}'.format(dat_color, hil_color, hil_color) + ti + ' ' + da + ' ' + '%{F-}%{U-}')
 
-def get_focw():
-    foc_win = i3.get_tree().find_focused()
+#def get_focw():
+ #   foc_win = i3.get_tree().find_focused()
 
-    return ('%{{c}}%{{U{}}}%{{F{}}}'.format(hil_color, hil_color) + foc_win.name + '%{F-}%{U-}')
+  #  return ('%{{c}}%{{U{}}}%{{F{}}}'.format(hil_color, hil_color) + foc_win.name + '%{F-}%{U-}')
 
 def main():
     while True:
-        print(format(get_wk() + get_tida() + get_focw()))
+        print(format(get_wk() + get_tida()))
         time.sleep(0.2)
 
 main()

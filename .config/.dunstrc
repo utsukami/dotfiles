@@ -20,17 +20,17 @@
 
 [frame]
     width = 4
-    color = "#e52035"
+    color = "#2679db"
 
 [urgency_low]
     background = "#ffffff"
     foreground = "#000000"
-    timeout = 3
+    timeout = 7
 
 [urgency_normal]
-    background = "#27245C"
+    background = "#383C4A"
     foreground = "#ffffff"
-    timeout = 5
+    timeout = 7
 
 [urgency_critical]
     background = "#ff9999"

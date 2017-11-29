@@ -9,7 +9,8 @@ URxvt.cursorBlink: true
 !URxvt.cursorUnderline: true
 
 ! font config
-URxvt*font:	xft:Iosevka:size=10
+URxvt*font:	xft:Iosevka:size=11, \
+			xft:IPAPGothic:size=14:antialias=true
 
 ! URLs
 URxvt.perl-ext: default,url-select
