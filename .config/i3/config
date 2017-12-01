@@ -60,20 +60,14 @@ $exa $cbp/bar.sh
 $exe java -jar $HOME/games/rs/OSBuddy.jar 
 
 # misc
-$nsi sh $cbp/startup.sh
-$nsi sh $cbp/mouse.sh
 $exe discord
 $exe i3-msg "workspace 2; append_layout ~/.config/i3/wp2.json"
-$exe google-chrome-stable
+$exe firefox
 $exe pavucontrol
+
 ## End Startup
 
 ## Scripts
-
-# monitors 
-#$bsym $mod+Control+1 $shx $cbp/monl.sh 
-#$bsym $mod+Control+2 $shx $cbp/monr.sh
-#$bsym $mod+Control+3 $shx $cbp/dmon.sh
 
 # lock
 $bsym $mod+Control+Delete $shx $cbp/lock.sh
