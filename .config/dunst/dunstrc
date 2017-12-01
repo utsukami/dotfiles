@@ -25,12 +25,12 @@
 [urgency_low]
     background = "#ffffff"
     foreground = "#000000"
-    timeout = 7
+    timeout = 5
 
 [urgency_normal]
     background = "#383C4A"
     foreground = "#ffffff"
-    timeout = 7
+    timeout = 5
 
 [urgency_critical]
     background = "#ff9999"
@@ -39,4 +39,4 @@
 
 [osbuddy]
 	appname = "OSBuddy*"
-	script = /home/kokkue/code/bash/alert.sh
+	script = alert.sh
