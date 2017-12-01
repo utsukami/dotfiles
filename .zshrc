@@ -8,7 +8,7 @@ HYPHEN_INSENSITIVE="true"
 ENABLE_CORRECTION="true"
 HIST_STAMPS="mm/dd/yyyy"
 
-#plugins=(archlinux colorize cp git python repo z)
+plugins=(archlinux colorize cp git python repo z)
 
 source $ZSH/oh-my-zsh.sh
 
