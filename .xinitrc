@@ -1,38 +1,31 @@
-#!/bin/sh
-
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
-
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
-
-if [ -f $sysresources ]; then
-    xrdb -merge $sysresources
-fi
-
-if [ -f $sysmodmap ]; then
-    xmodmap $sysmodmap
-fi
-
-if [ -f "$userresources" ]; then
-    xrdb -merge "$userresources"
-fi
-
-if [ -f "$usermodmap" ]; then
-    xmodmap "$usermodmap"
-fi
-
-# start some nice programs
+#!/bin/zsh
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
   [ -x "$f" ] && . "$f"
- done
- unset f
-fi
+ done;
+ unset f;
+fi;
 
-[[ -f ~/.config/Xresources ]] && xrdb -merge ~/.config/Xresources
-exec i3
+# load fcitx
+export GTK_IM_MODULE=fcitx;
+export QT_IM_MODULE=fcitx;
+export XMODIFIERS=@im=fcitx;
+
+# set xresources path
+xree_path=$HOME/.config/Xresources;
+
+# load xresources 
+[[ -f ~/.config/Xresources ]] && xrdb $xree_path;
+
+# load wallpaper
+nitrogen --restore;
+
+# load notifications
+dunst &
+
+# load composite manager
+compton -bcCzf;
+
+# start i3 WM
+exec i3;
