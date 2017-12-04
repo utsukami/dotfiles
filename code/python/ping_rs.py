@@ -48,7 +48,7 @@ def file_get(meth):
     status, response = http.request('http://oldschool.runescape.com/slu?order=WLMPA')
     data = bs(response, 'lxml')
 
-    with open(file_save, meth) as fp:
+    with open('{}'.format(file_save), meth) as fp:
         for lines in data.find_all('tr'):
             fp.write(str(lines))
 
@@ -72,7 +72,8 @@ def selector(selection):
 if file_save.is_file():
     get_select = int(input('Select:\n - Ping types:\n\n\t1] {}2] {}3] {} - Options:\n\n\t4] {}'.format(
         'All\n\t', 'Region\n\t', 'Specific\n\n', 'Update world list\n\nEnter: ')))
-    with open(file_save) as file_contents:
+    
+    with open('{}'.format(file_save)) as file_contents:
         worlds = bs(file_contents, 'lxml')
 
     selector(get_select)
@@ -80,7 +81,7 @@ if file_save.is_file():
     if get_select == 4:
         file_get('w+')
     
-        with open(file_save) as file_contents:
+        with open('{}'.format(file_save)) as file_contents:
             worlds = bs(file_contents, 'lxml')
     
         gsec = int(input('Select:\n Ping types:\n\n\t1] All \n\t2] Region \n\t3] Specific\n\nEnter: '))
@@ -90,7 +91,7 @@ else:
     file_get('a+')
     gsec_none = int(input('Select:\n Ping types:\n\n\t1] All \n\t2] Region \n\t3] Specific\n\nEnter: '))
     
-    with open(file_save) as file_contents:
+    with open('{}'.format(file_save)) as file_contents:
         worlds = bs(file_contents, 'lxml')
     
     selector(gsec_none)
