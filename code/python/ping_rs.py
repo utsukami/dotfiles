@@ -43,12 +43,12 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                         print('#: Title\n min / avg / max (ms)\n')
                         print(''.join(map(str, (ping_cmd(number, title, url, 10)))))
 
-def file_get():
+def file_get(meth):
     http = httplib2.Http()
     status, response = http.request('http://oldschool.runescape.com/slu?order=WLMPA')
     data = bs(response, 'lxml')
 
-    with open(file_save, 'w') as fp:
+    with open(file_save, meth) as fp:
         for lines in data.find_all('tr'):
             fp.write(str(lines))
 
@@ -78,7 +78,7 @@ if file_save.is_file():
     selector(get_select)
 
     if get_select == 4:
-        file_get()
+        file_get('w+')
     
         with open(file_save) as file_contents:
             worlds = bs(file_contents, 'lxml')
@@ -87,7 +87,7 @@ if file_save.is_file():
         selector(gsec)
 
 else:
-    file_get()
+    file_get('a+')
     gsec_none = int(input('Select:\n Ping types:\n\n\t1] All \n\t2] Region \n\t3] Specific\n\nEnter: '))
     
     with open(file_save) as file_contents:
