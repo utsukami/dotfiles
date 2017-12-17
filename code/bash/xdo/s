@@ -1,5 +1,0 @@
-if [[ "$(xdotool getwindowfocus getwindowname)" == "OSBuddy Pro"* ]]; then
-	$(xdotool sleep 0.15 mousemove_relative 0 -74);
-else
-	$(xdotool key alt+0);
-fi
