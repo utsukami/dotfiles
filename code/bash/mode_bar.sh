@@ -1,0 +1,1 @@
+/home/kokkue/code/bash/mode_bar.sh

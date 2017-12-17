@@ -1,0 +1,1 @@
+/home/kokkue/code/bash/git_bot.sh
