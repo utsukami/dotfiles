@@ -1,0 +1,42 @@
+[global]
+    font = "Iosevka 10"
+    allow_markup = yes
+    format = "<b>%s %p</b>\n%b"
+    sort = yes
+    indicate_hidden = true
+    idle_threshold = 0
+    geometry = "200x5-6+30"
+    alignment = center
+    show_age_threshold = 60
+    sticky_history = yes
+    follow = mouse
+    word_wrap = yes
+    separator_height = 2
+    padding = 10
+    horizontal_padding = 5
+	vertical_padding = 30
+    separator_color = frame
+    startup_notification = true
+
+[frame]
+    width = 4
+    color = "#2679db"
+
+[urgency_low]
+    background = "#ffffff"
+    foreground = "#000000"
+    timeout = 5
+
+[urgency_normal]
+    background = "#383C4A"
+    foreground = "#ffffff"
+    timeout = 5
+
+[urgency_critical]
+    background = "#ff9999"
+    foreground = "#000000"
+    timeout = 0
+
+[osbuddy]
+	appname = "OSBuddy*"
+	script = alert.sh

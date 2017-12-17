@@ -1,1 +1,5 @@
-/home/kokkue/code/xdotool/1
+if [[ "$(xdotool getwindowfocus getwindowname)" == "OSBuddy Pro"* ]]; then
+	$(xdotool sleep 0.15 click 3);
+else
+	$(xdotool key alt+0);
+fi
