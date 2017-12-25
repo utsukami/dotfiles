@@ -1,0 +1,180 @@
+[colors]
+bgc = "#00000000"
+blk = ${xrdb:color0}
+red = ${xrdb:color1}
+gre = ${xrdb:color2}
+yel = ${xrdb:color3} 
+blu = ${xrdb:color4} 
+mag = ${xrdb:color5}
+cya = ${xrdb:color6} 
+whi = ${xrdb:color7} 
+
+[global]
+monitor = DVI-I-0
+width = 100%
+height = 27
+offset-x = 0
+offset-y = 5
+fixed-center = true
+wm-restack = i3
+override-redirect = true
+
+background = ${colors.bgc}
+foreground = ${colors.whi}
+
+line-size = 3
+
+padding-left = 1
+padding-right = 1
+
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = Iosevka:weight=medium:size=12;2
+font-1 = FontAwesome:size=13;3
+
+
+[bar/top]
+inherit = global
+
+modules-left = powermenu
+modules-center = i3 
+modules-right = date weather pavolume notify
+
+[bar/bot]
+inherit = global
+bottom = true
+
+modules-left = 
+modules-center = music
+modules-right =
+
+[module/i3]
+type = internal/i3
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-default = 
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+format = <label-state> <label-mode>
+format-foreground = ${colors.whi}
+index-sort = true
+wrapping-scroll = true
+
+label-focused = %icon%
+label-focused-underline = ${colors.yel}
+label-focused-overline = ${colors.cya}
+label-focused-padding = 1
+
+label-unfocused = %icon%
+label-unfocused-padding = 1
+
+label-visible = %icon%
+label-visible-overline = ${colors.cya}
+label-visible-padding = 1
+
+label-urgent = %icon%
+label-urgent-padding = 1
+label-urgent-underline = ${colors.red}
+label-urgent-overline = ${colors.red}
+
+[module/mpd]
+type = internal/mpd
+format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+label-song-maxlen = 25
+label-song-ellipsis = true
+
+[module/date]
+type = internal/date
+interval = 1
+
+time = " %H:%M"
+
+date-alt = " %a, %b %d    %H:%M"
+
+label = %date%%time%
+format = <label>
+
+[module/weather]
+type = custom/script
+interval = 600
+format = <label>
+exec = ~/.config/polybar/weathericons
+
+[module/pavolume]
+type = custom/script
+tail = true
+label = %output%
+exec = ~/.config/polybar/pavolume.sh --listen
+click-right = exec pavucontrol
+click-left = ~/.config/polybar/pavolume.sh --togmute
+scroll-up = ~/.config/polybar/pavolume.sh --up
+scroll-down = ~/.config/polybar/pavolume.sh --down
+
+[module/notify]
+type = custom/script
+exec =  echo " "
+format-prefix = ""
+format-prefix-foreground = ${colors.whi}
+click-left = xdotool key Control+grave
+click-right = xdotool key Control+space
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+format = <label-toggle> <menu>
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.whi}
+label-close = 
+label-close-foreground = ${colors.red}
+label-separator-foreground = ${colors.whi}
+
+menu-0-0 = " Lock "
+menu-0-0-exec = betterlockscreen --lock
+menu-0-1 = "  Power "
+menu-0-1-exec = menu-open-1
+menu-0-2 = "  Sleep "
+menu-0-2-exec = menu-open-2
+menu-0-3 = "  i3"
+menu-0-3-exec = menu-open-3
+
+menu-1-0 = " Poweroff "
+menu-1-0-exec = poweroff
+menu-1-1 = "  Restart" 
+menu-1-1-exec = restart
+
+menu-2-0 = " On "
+menu-2-0-exec = xset s 600 600
+menu-2-1 = " Off"
+menu-2-1-exec = xset s 0 0
+
+menu-3-0 = " Kill "
+menu-3-0-exec = i3-msg exit
+menu-3-1 = "  Refresh"
+menu-3-1-exec = i3-msg restart
+
+[module/music]
+type = custom/script
+interval = 2
+
+label = %output:0:85:...%
+exec = ~/.config/polybar/mpris.sh
+click-left = playerctl play-pause
+click-middle = playerctl previous
+click-right = playerctl next
