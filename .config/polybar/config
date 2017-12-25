@@ -54,8 +54,8 @@ type = internal/i3
 ws-icon-0 = 1;
 ws-icon-1 = 2;
 ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
 ws-icon-default = 
 
 scroll-up = i3wm-wsnext
@@ -155,9 +155,9 @@ menu-0-3 = "  i3"
 menu-0-3-exec = menu-open-3
 
 menu-1-0 = " Poweroff "
-menu-1-0-exec = poweroff
+menu-1-0-exec = sudo poweroff
 menu-1-1 = "  Restart" 
-menu-1-1-exec = restart
+menu-1-1-exec = sudo reboot
 
 menu-2-0 = " On "
 menu-2-0-exec = xset s 600 600
