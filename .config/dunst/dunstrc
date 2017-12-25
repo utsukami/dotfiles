@@ -1,35 +1,41 @@
 [global]
-    font = "Iosevka 10"
-    allow_markup = yes
-    format = "<b>%s %p</b>\n%b"
+    font = "Iosevka-medium 11"
+    markup =  full
+    format = "<b>%a</b>\n%s\n"
     sort = yes
     indicate_hidden = true
     idle_threshold = 0
-    geometry = "200x5-6+30"
+    geometry = "150x0-10+40"
     alignment = center
+    history_length = 20
     show_age_threshold = 60
     sticky_history = yes
-    follow = mouse
+    follow = none
     word_wrap = yes
-    separator_height = 2
-    padding = 10
-    horizontal_padding = 5
-	vertical_padding = 30
-    separator_color = frame
+    separator_height = 4
+    padding = 8
+    horizontal_padding = 0
+    vertical_padding = 0
+    separator_color = "#000000"
     startup_notification = true
+    transparency = 15
+    frame_width = 3
+    frame_color = "#fcfefb"
 
-[frame]
-    width = 4
-    color = "#2679db"
+[shortcuts]
+    close_all = ctrl+space
+    history = ctrl+grave
 
 [urgency_low]
-    background = "#ffffff"
-    foreground = "#000000"
-    timeout = 5
+    background = "#0d2028"
+    frame_color = "#ffc16b"
+    foreground = "#fcfefd"
+    timeout = 3
 
 [urgency_normal]
-    background = "#383C4A"
-    foreground = "#ffffff"
+    background = "#0d2028"
+    frame_color = "#ff5f75"
+    foreground = "#fcfefd"
     timeout = 5
 
 [urgency_critical]
@@ -38,5 +44,16 @@
     timeout = 0
 
 [osbuddy]
-	appname = "OSBuddy*"
-	script = alert.sh
+    appname = "OSBuddy*"
+    urgency = low
+    script = alert.sh
+
+[runelite]
+    appname = "notify-send"
+    summary = "RuneLite*"
+    urgency = low
+    script = alert.sh
+
+[discord]
+    appname = "Discord"
+    urgency = normal

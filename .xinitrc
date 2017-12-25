@@ -17,8 +17,6 @@ nitrogen --restore;
 # load notifications
 dunst &
 
-# load composite manager
-compton -bcCzf;
-
+exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3;
 # start i3 WM
 exec i3;

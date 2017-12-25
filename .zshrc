@@ -1,7 +1,7 @@
 #!/bin/zsh
 ## ZSH
 # Path to your oh-my-zsh installation.
-export ZSH=/home/kokkue/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="minimal"
 HYPHEN_INSENSITIVE="true"
@@ -16,13 +16,13 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export EDITOR=vim
+export PULSE_LATENCY_MSEC=60
 
-alias pacman='sudo pacman'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias svim='sudoedit'
-alias reboot='systemctl reboot'
-alias poweroff='systemctl poweroff'
-alias vpno='sudo systemctl start openvpn-client@US_East.service'
-alias vpnf='sudo systemctl stop openvpn-client@US_East.service'
+alias reboot='sudo reboot'
+alias poweroff='sudo poweroff'
+alias vpno='sudo /etc/init.d/openvpn start'
+alias vpnf='sudo /etc/init.d/openvpn stop'
 alias streamlinkp='streamlink -p mpv'
