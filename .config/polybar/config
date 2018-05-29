@@ -39,7 +39,7 @@ inherit = global
 
 modules-left = powermenu
 modules-center = i3 
-modules-right = date weather pavolume notify
+modules-right = date pavolume notify
 
 [bar/bot]
 inherit = global
@@ -57,9 +57,6 @@ ws-icon-2 = 3;
 ws-icon-3 = 4;
 ws-icon-4 = 5;
 ws-icon-default = 
-
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
 
 format = <label-state> <label-mode>
 format-foreground = ${colors.whi}
@@ -160,9 +157,9 @@ menu-1-1 = "  Restart"
 menu-1-1-exec = sudo reboot
 
 menu-2-0 = " On "
-menu-2-0-exec = xset s 600 600
+menu-2-0-exec = xset s 600 600 && xset +dpms
 menu-2-1 = " Off"
-menu-2-1-exec = xset s 0 0
+menu-2-1-exec = xset s 0 0 && xset -dpms
 
 menu-3-0 = " Kill "
 menu-3-0-exec = i3-msg exit

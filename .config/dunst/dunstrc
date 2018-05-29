@@ -1,7 +1,7 @@
 [global]
     font = "Iosevka-medium 11"
     markup =  full
-    format = "<b>%a</b>\n%s\n"
+    format = "<b>%s %p</b>\n%b\n"
     sort = yes
     indicate_hidden = true
     idle_threshold = 0
@@ -36,7 +36,7 @@
     background = "#0d2028"
     frame_color = "#ff5f75"
     foreground = "#fcfefd"
-    timeout = 5
+    timeout = 3
 
 [urgency_critical]
     background = "#ff9999"
@@ -51,9 +51,10 @@
 [runelite]
     appname = "notify-send"
     summary = "RuneLite*"
-    urgency = low
+    format = "<b>%s %p</b>\n%b"
+    urgency = normal
     script = alert.sh
 
 [discord]
     appname = "Discord"
-    urgency = normal
+    urgency = low

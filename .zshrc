@@ -20,9 +20,10 @@ export PULSE_LATENCY_MSEC=60
 
 alias ..='cd ..'
 alias ...='cd ../..'
-alias svim='sudoedit'
+alias svim='sudo vim'
 alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
 alias vpno='sudo /etc/init.d/openvpn start'
 alias vpnf='sudo /etc/init.d/openvpn stop'
 alias streamlinkp='streamlink -p mpv'
+alias njava='nocorrect nohup java'

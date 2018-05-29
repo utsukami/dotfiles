@@ -2,6 +2,7 @@
 
 # Mod1 = alt
 set $mod Mod1
+mouse_warping output
 
 # window naming
 set $FOC client.focused
@@ -26,7 +27,7 @@ $FIN	$bgb $bgb $whi $bgb $bgb
 set $xdo $HOME/code/xdotool
 set $cbp $HOME/code/bash
 set $exe exec
-set $shx exec sh
+set $shx exec --no-startup-id sh
 set $nsi exec --no-startup-id
 set $exa exec_always --no-startup-id
 
@@ -63,17 +64,13 @@ $exa $HOME/.config/polybar/launch.sh
 # compton
 $exa compton --config $HOME/.config/compton.conf -bz
 
-# runescape
-#$exe java -jar $HOME/.oldschool/clients/OSBuddy.jar 
-
 # browser
 $nsi i3-msg "workspace 2; append_layout ~/.config/i3/wp2.json"
 $nsi firefox
 $nsi pavucontrol
 
 # social
-$nsi discord
-#$exe /opt/genymotion/player --vm-name "Phone"
+$nsi /opt/discord/Discord
 
 ## End Startup
 
@@ -152,17 +149,15 @@ $bsym $mod+Control+l move right 50 px
 
 # start programs 
 $bsym $mod+F1 $nsi firefox
-$bsym $mod+F3 $nsi discord
-$bsym $mod+F4 $nsi java -jar $HOME/.oldschool/clients/OSBuddy.jar
+$bsym $mod+F3 $nsi /opt/discord/Discord
+$bsym $mod+F4 $nsi java -jar $HOME/.oldschool/clients/runelite.jar
 $bsym $mod+F5 $nsi steam
 
 # border/window behavior 
 $fwin [class="^.*"] border pixel 0
 $fwin [class="Steam" title="(?i)"] floating enable 
-$fwin [class="(?i)OSBuddy" title="(?i)"] border pixel 2
-$fwin [class="(?i)OSBuddy" title="(?i)"] floating enable
-#$fwin [class="(?i)RuneLoader" title="(?i)"] floating enable
-#$fwin [class="TeamSpeak 3" title="(?i)"] floating enable
+$fwin [class="(?i)RuneLite" title="(?i)"] border pixel 2
+$fwin [class="(?i)RuneLite" title="(?i)"] floating enable
 #$fwin [class="mpv" title="(?i)"] floating enable 
 focus_on_window_activation none
 no_focus [window_role="(?i)"]
@@ -200,6 +195,7 @@ assign [class="(?i)firefox"] $ws2
 assign [class="(?i)player"]  $ws3
 assign [class="(?i)discord"] $ws3
 assign [class="(?i)steam"]   $ws4
+assign [class="(?i)RocketLeague"] $ws5
 ## End Workspaces
 
 ## Modes/AHK
@@ -207,63 +203,46 @@ assign [class="(?i)steam"]   $ws4
 # enter modes
 $bsym $mod+Control+1 mode "jad"
 $bsym $mod+Control+2 mode "ahk"
+$bsym $mod+0 mode "ahk"
 $bsym $mod+Control+3 mode "alt"
 $bcod $mod+40 mode "resize"
 
+# wristsavers 
 $bsym $mod+Left $nsi xdotool mousemove_relative -- -850 -0
 $bsym $mod+Right $nsi xdotool mousemove_relative 850 0
 $bsym $mod+Down $nsi xdotool mousemove_relative 0 500
 $bsym $mod+Up $nsi xdotool mousemove_relative -- -0 -500
 
-#$codr $mod+45 $shx $cbp/git_bot.sh
-#$bcod $mod+Control+53 $shx $cbp/kgh.sh
-
 # modes
 mode "ahk" {
-	# keys 1 2 3 4 5
-	$bcod 10 $shx $xdo/1
-	$bcod 11 $shx $xdo/2
-	$bcod Shift+11 $shx $xdo/2
-	$bcod 12 $shx $xdo/3
-	$bcod Shift+12 $shx $xdo/3
-	$codr 13 $shx $xdo/4
-	$codr 14 $shx $xdo/5
+	# row 4 keys (1, 2, 3)
+#	$codr 10 $shx $xdo/right
+#	$codr 11 $shx $xdo/menu2
+#	$codr 12 $shx $xdo/left
 	
-	# keys ' , . p 
-	$bcod 24 $shx $xdo/1
-	$bcod 25 $shx $xdo/c
-	$bcod 26 $shx $xdo/3
-	$codr 27 $shx $xdo/p
+	# row 3 keys (' , . P)
+	$bcod 24 $shx $xdo/right
+	$bcod 25 $shx $xdo/menu4
+	$bcod 26 $shx $xdo/left
+	$codr 27 $shx $xdo/escape
 	
-	# keys y u spacebar
-	$bcod 28 $shx $xdo/y
-	$bcod 41 $shx $xdo/u
-	
-	# keys a o e 
-	$bcod 38 $shx $xdo/acc1
-	$bcod 39 $shx $xdo/acc2
-	$bcod 40 $shx $xdo/acc3
+	# misc keys
+#	$codr 65 $nsi xdotool key 8
 
 	$bcod 49 mode "default"
 	$bsym $mod+Control+2 mode "default"
+	$bsym $mod+0 mode "default"
 	$bsym $mod+Shift+P restart
 }
 
 mode "alt" {
-	# client teleports	
-	$bcod 10 $shx $xdo/acc1
-	$bcod 11 $shx $xdo/acc2
-	$bcod 12 $shx $xdo/acc3
-	$bcod 13 $shx $xdo/acc4
+	# clients	
+#	$bcod 10 $shx $xdo/acc1
+#	$bcod 11 $shx $xdo/acc2
+#	$bcod 12 $shx $xdo/acc3
+#	$bcod 13 $shx $xdo/acc4
+#	$bsym $mod+Tab $shx $xdo/acc3
 	
-	# tt autoclicker
-	$bcod $mod+49 $shx $cbp/tt.sh
-	$bcod Shift+49 $shx $cbp/ktta.sh
-	
-	# autoclicker
-	$bcod 41 $shx $cbp/dk.sh
-	$bcod 44 $shx $cbp/darts.sh
-
 	$bcod 49 mode "default"
 	$bsym $mod+Control+3 mode "default"
 	$bsym $mod+Shift+P restart
@@ -271,7 +250,7 @@ mode "alt" {
 
 mode "jad" {
 	$codr 10 $nsi xdotool key F1
-	$codr 11 $nsi xdotool key Escape
+	$codr 11 $shx $xdo/escape
 	$codr 12 $nsi xdotool key F5
 	$codr 13 $nsi xdotool key F6	
 

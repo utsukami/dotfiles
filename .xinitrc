@@ -2,7 +2,7 @@
 
 # load fcitx
 export GTK_IM_MODULE=fcitx;
-export QT_IM_MODULE=fcitx;
+export QT_IM_MODULE=xim;
 export XMODIFIERS=@im=fcitx;
 
 # set xresources path
@@ -20,3 +20,5 @@ dunst &
 exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3;
 # start i3 WM
 exec i3;
+
+eval `dbus-launch --sh-syntax --exit-with-session`
