@@ -1,8 +1,7 @@
-curmode=""
 i3subscribe mode window | while read -r event; do
 	window=$(xdotool getwindowfocus getwindowname);
 
-	if [[ $event != mode* && $curmode == "" ]]; then
+	if [[ $event != mode* && ! $curmode ]]; then
 		curmode="mode:default"
 	elif [[ $event == mode* ]]; then
 		curmode=$event
