@@ -14,8 +14,8 @@ set $FIN client.focused_inactive
 set_from_resource $red color9
 
 # custom color
-set $whi "#115566"
-set $bgb "#c7c7c7"
+set $whi "#fcfefb"
+set $bgb "#0d2028"
 
 # window colors
 $FOC	$whi $whi $whi $whi $whi
