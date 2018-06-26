@@ -97,9 +97,8 @@ label-song-ellipsis = true
 type = internal/date
 interval = 1
 
-time = " %H:%M"
-
-date-alt = " %a, %b %d    %H:%M"
+date = " %a, %b %d    %H:%M"
+time-alt = " %H:%M"
 
 label = %date%%time%
 format = <label>
