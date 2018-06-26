@@ -1,4 +1,5 @@
 [global]
+	monitor = 1
     font = "Iosevka-medium 11"
     markup =  full
     format = "<b>%s %p</b>\n%b\n"
@@ -43,17 +44,20 @@
     foreground = "#000000"
     timeout = 0
 
-[osbuddy]
-    appname = "OSBuddy*"
-    urgency = low
-    script = alert.sh
-
 [runelite]
     appname = "notify-send"
     summary = "RuneLite*"
     format = "<b>%s %p</b>\n%b"
     urgency = normal
     script = alert.sh
+
+[runelite-alt]
+    appname = "notify-send"
+    summary = "RuneLite*"
+	body = "*Loyo Swag*"
+    format = "<b>%s %p</b>\n%b"
+    urgency = normal
+    script = wc_alert.sh
 
 [discord]
     appname = "Discord"

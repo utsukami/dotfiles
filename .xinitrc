@@ -19,6 +19,6 @@ dunst &
 
 exec ck-launch-session dbus-launch --sh-syntax --exit-with-session i3;
 # start i3 WM
-exec i3;
-
+#exec i3;
+#exec bspwm;
 eval `dbus-launch --sh-syntax --exit-with-session`
