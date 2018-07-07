@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+HOME_OG=$HOME;
+export HOME=$HOME/.oldschool; 
+nohup java -jar $HOME_OG/code/java/runelite/runelite-client/target/*-shaded.jar &
+export HOME=$HOME_OG;
