@@ -16,6 +16,8 @@ if grep -q "$phrase" $files/git_comms $files/git_args > /dev/null; then
 		:
 	fi;
 else
+	sleep 1; xdotool key ctrl+BackSpace;
+	sleep 1; xdotool key Return;
 	sleep .3; xdotool type --delay 35 "/git: '$phrase' is not a git command. See 'git --help'.";
 	xdotool key Return;
 fi;
