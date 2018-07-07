@@ -9,9 +9,9 @@ i3subscribe mode window | while read -r event; do
 
 	if [[ $event == *focus ]]; then
 		if [[ $window == "RuneLite" && $curmode == *"def"* ]]; then
-			$(xdotool key alt+0); $(xdotool key alt);
+			$(xdotool key super+0); $(xdotool key super);
 		elif [[ $window != "RuneLite" && $curmode != *"def"* ]]; then
-			$(xdotool key alt+0); $(xdotool key alt);
+			$(xdotool key super+0); $(xdotool key super);
 		fi
 	fi
 done
