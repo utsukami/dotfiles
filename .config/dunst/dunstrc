@@ -49,7 +49,7 @@
     summary = "RuneLite*"
     format = "<b>%s %p</b>\n%b"
     urgency = normal
-    script = alert.sh
+    script = main_alert
 
 [runelite-alt]
     appname = "notify-send"
@@ -57,7 +57,7 @@
 	body = "*Loyo Swag*"
     format = "<b>%s %p</b>\n%b"
     urgency = normal
-    script = wc_alert.sh
+    script = alt_alert_1
 
 [discord]
     appname = "Discord"
