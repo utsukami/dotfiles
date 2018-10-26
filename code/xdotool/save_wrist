@@ -1,6 +1,6 @@
 RLCL="net-runelite-client-RuneLite";
-WIN1=$(($(xdotool search --class --maxdepth 1 --limit 2 "$RLCL" | head -n 1)+1));
-WIN2=$(($(xdotool search --class --maxdepth 1 --limit 2 "$RLCL" | tail -n 1)+1));
+WIN1=$(xdotool search --class --onlyvisible --maxdepth 2 "$RLCL" | head -n 1);
+WIN2=$(xdotool search --class --onlyvisible --maxdepth 2 "$RLCL" | tail -n 1);
 
 if [[ $(xdotool getactivewindow) == $WIN1 ]]; then
 	xdotool mousemove --window $WIN2 375 250;

@@ -4,13 +4,13 @@
     markup =  full
     format = "<b>%s %p</b>\n%b\n"
     sort = yes
-    indicate_hidden = true
-    idle_threshold = 0
+    idle_threshold = 10
     geometry = "150x0-10+40"
     alignment = center
     history_length = 20
     show_age_threshold = 60
-    sticky_history = yes
+    show_indicators = no
+    sticky_history = no
     follow = none
     word_wrap = yes
     separator_height = 4
@@ -35,30 +35,23 @@
 
 [urgency_normal]
     background = "#0d2028"
-    frame_color = "#ff5f75"
+    frame_color = "#ffc16b"
     foreground = "#fcfefd"
     timeout = 3
 
-[urgency_critical]
-    background = "#ff9999"
-    foreground = "#000000"
-    timeout = 0
-
 [runelite]
-    appname = "notify-send"
-    summary = "RuneLite*"
+    body = "*Kokkue*"
     format = "<b>%s %p</b>\n%b"
-    urgency = normal
+    urgency = low
     script = main_alert
 
 [runelite-alt]
-    appname = "notify-send"
-    summary = "RuneLite*"
-	body = "*Loyo Swag*"
+    body = "*Muimina*"
     format = "<b>%s %p</b>\n%b"
-    urgency = normal
-    script = alt_alert_1
+    urgency = low
+    script = iron_alert
 
 [discord]
     appname = "Discord"
-    urgency = low
+    format = "<b>%a</b>\n%s"
+    urgency = normal

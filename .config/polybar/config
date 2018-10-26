@@ -14,10 +14,10 @@ monitor = DVI-D-1
 width = 100%
 height = 27
 offset-x = 0
-offset-y = 5
+offset-y = 1
 fixed-center = true
 wm-restack = i3
-override-redirect = true
+override-redirect = false
 
 background = ${colors.bgc}
 foreground = ${colors.whi}
@@ -41,12 +41,19 @@ modules-left = powermenu
 modules-center = i3 
 modules-right = date pavolume notify
 
+[bar/topbot]
+inherit = global
+
+modules-left =
+modules-center =
+modules-right =
+
 [bar/bot]
 inherit = global
 bottom = true
 
 modules-left = 
-modules-center = music
+modules-center =
 modules-right =
 
 [module/i3]
@@ -64,15 +71,15 @@ index-sort = true
 wrapping-scroll = true
 
 label-focused = %icon%
-label-focused-underline = ${colors.yel}
-label-focused-overline = ${colors.cya}
+label-focused-underline = ${colors.cya}
+label-focused-overline = ${colors.yel}
 label-focused-padding = 1
 
 label-unfocused = %icon%
 label-unfocused-padding = 1
 
 label-visible = %icon%
-label-visible-overline = ${colors.cya}
+label-visible-underline = ${colors.cya}
 label-visible-padding = 1
 
 label-urgent = %icon%
@@ -142,7 +149,7 @@ label-close-foreground = ${colors.red}
 label-separator-foreground = ${colors.whi}
 
 menu-0-0 = " Lock "
-menu-0-0-exec = betterlockscreen --lock
+menu-0-0-exec = pkill compton && betterlockscreen --lock
 menu-0-1 = "  Power "
 menu-0-1-exec = menu-open-1
 menu-0-2 = "  Sleep "

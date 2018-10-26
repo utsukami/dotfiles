@@ -40,8 +40,8 @@ set $bcod bindcode
 set $codr bindcode --release
 
 # workspaces
-set $ws1 1
-set $ws2 2
+set $ws1 "1"
+set $ws2 "2"
 set $ws3 3
 set $ws4 4
 set $ws5 5
@@ -52,7 +52,7 @@ set $ws9 9
 
 workspace $ws1 output DVI-D-1
 workspace $ws2 output DVI-I-0
-workspace $ws3 output DVI-D-1
+#workspace $ws3 output DVI-D-1
 
 ## End Settings
 
@@ -64,10 +64,16 @@ $exa $HOME/.config/polybar/launch.sh
 # compton
 $exa compton --config $HOME/.config/compton.conf -bz
 
-# browser
+# workspace 1
+#$nsi i3-msg "workspace 1; append_layout ~/.config/i3/me.json"
+#$nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/ && praygame
+#$nsi firefox
+$nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/ironman && irongame
+#$nsi urxvt
+
+# restore workspace 2
 $nsi i3-msg "workspace 2; append_layout ~/.config/i3/wp2.json"
 $nsi firefox
-$nsi pavucontrol
 
 # social
 $nsi /opt/discord/Discord
@@ -80,7 +86,7 @@ $nsi /opt/discord/Discord
 $bsym $mod+Control+Delete $shx $cbp/lock.sh
 
 #scort
-$codr $mod+30 $nsi scrot -s $HOME'/screenshots/%Y/%m/%d/%H:%M:%S.png'
+$codr $mod+30 $nsi scrot -s $HOME'/screenshots/%Y/%b/%d/%H:%M:%S.png'
 
 # autotyping
 $bcod $mod+Control+61 $shx $cbp/discord_link.sh
@@ -130,8 +136,15 @@ $bsym $mod+Shift+P restart
 $bsym $mod+Shift+O $exe "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'"
 
 # gaps
-gaps inner 20
-gaps outer 20
+set $default_gaps_inner 5
+set $default_gaps_outer 5
+
+gaps inner $default_gaps_inner
+gaps outer $default_gaps_outer
+
+workspace $ws2 gaps inner 5
+workspace $ws2 gaps outer 15
+smart_borders on
 
 # change focus
 $bsym $mod+h focus left
@@ -153,9 +166,9 @@ $bsym $mod+Control+l move right 50 px
 
 # start programs 
 $bsym $mod+F1 $nsi firefox
-$bsym $mod+F2 $nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/ && praygame
+$bsym $mod+F2 $nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/main && praygame
 $bsym $mod+F3 $nsi /opt/discord/Discord
-$bsym $mod+F4 $nsi java -jar $HOME/.oldschool/clients/runelite.jar
+$bsym $mod+F4 $nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/ironman && praygame
 $bsym $mod+F5 $nsi steam
 
 # border/window behavior 
@@ -203,9 +216,11 @@ $bsym $mod+Shift+7 move container to workspace $ws7
 $bsym $mod+Shift+8 move container to workspace $ws8
 $bsym $mod+Shift+9 move container to workspace $ws9
 
+# workspace gaps
+
 # assigning to workspaces
 #assign [class="(?i)net-runelite-client-RuneLite"] $ws1
-assign [class="(?i)firefox"] $ws2
+#assign [class="(?i)firefox"] $ws2
 assign [class="(?i)player"]  $ws3
 assign [class="(?i)discord"] $ws3
 assign [class="(?i)steam"]   $ws4
@@ -217,8 +232,8 @@ assign [class="(?i)RocketLeague"] $ws5
 # enter modes
 $bsym $mod+Control+1 mode "jad"
 $bsym $mod+Control+2 mode "ahk"
-#$bsym $mod+0 mode "ahk"
-$bsym $mod+0 mode "alt"
+$bsym $mod+0 mode "ahk"
+#$bsym $mod+0 mode "alt"
 $bsym $mod+Control+3 mode "alt"
 $bcod $mod+40 mode "resize"
 
@@ -231,9 +246,11 @@ $bsym $mod+Up $nsi xdotool mousemove_relative -- -0 -500
 # modes
 mode "ahk" {
 	# row 4 keys (1, 2, 3)
-#	$codr 10 $shx $xdo/right
-#	$codr 11 $shx $xdo/menu2
-#	$codr 12 $shx $xdo/left
+	$bcod 10 $shx $xdo/right
+	$bcod 11 $shx $xdo/menu2
+	$bcod 12 $shx $xdo/left
+	$codr 13 $nsi xdotool key --clearmodifiers F4
+	$codr 41 $nsi xdotool key --clearmodifiers F9
 	
 	# row 3 keys (' , . P)
 	$bcod 24 $shx $xdo/right
@@ -242,13 +259,21 @@ mode "ahk" {
 	$codr 27 $shx $xdo/escape
 	#$codr 41 $nsi xdotool key Escape
 	
-	
+	$bsym $mod+1 workspace $ws1
+	$bsym $mod+2 workspace $ws2
+	$bsym $mod+3 workspace $ws3
+	$bsym $mod+4 workspace $ws4
+	$bsym $mod+5 workspace $ws5
+	$bsym $mod+6 workspace $ws6
+	$bsym $mod+Tab workspace back_and_forth
+
 	# misc keys
-	#$codr 65 $nsi xdotool key 8
+	#$codr 65 $nsi $xdo/left
+#	$bcod 38 $shx $xdo/save_wrist
 
 	$bcod 49 mode "default"
 	$bsym $mod+Control+2 mode "default"
-	#$bsym $mod+0 mode "default"
+	$bsym $mod+0 mode "default"
 	$bsym $mod+Shift+P restart
 }
 
@@ -282,10 +307,10 @@ mode "jad" {
 }
 
 mode "resize" {
-	$bsym h resize shrink width 10 px or 10 ppt
-	$bsym j resize grow height 10 px or 10 ppt
-	$bsym k resize shrink height 10 px or 10 ppt
-	$bsym l resize grow width 10 px or 10 ppt
+	$bsym h resize shrink width 1 px or 1 ppt
+	$bsym j resize grow height 1 px or 1 ppt
+	$bsym k resize shrink height 1 px or 1 ppt
+	$bsym l resize grow width 1 px or 1 ppt
 
 	$bsym Control+H resize shrink width 45 px or 45 ppt
 	$bsym Control+J resize grow height 45 px or 45 ppt
