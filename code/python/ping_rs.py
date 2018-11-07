@@ -54,7 +54,7 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                             print(
                                 "\nChecking ping on world {}..\n"
                                 "\nWorld #: Title\n Min = _ MS\n"
-                                "Max = _ MS\n Avg = _ MS\n"
+                                " Max = _ MS\n Avg = _ MS\n"
                                 .format(number_filter)
                             )
 
