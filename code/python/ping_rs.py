@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from operator import itemgetter
 from pathlib import Path
 from os.path import expanduser
-import re, subprocess, httplib2
+import sys, re, subprocess, httplib2
 
 home = expanduser("~")
 file_save = Path("{}/.osrs_worlds.html".format(home))
@@ -10,9 +10,17 @@ regions = ("United States", "United Kingdom", "Germany", "Australia")
 recommend = {}
 
 loc_re = re.compile("-{2}[A-U].")
-ping_re = re.compile(
-    r"\w+/\w+/\w+/\w+ = (?P<min>\d*[.,]?\d*)/"
-    "(?P<avg>\d*[.,]?\d*)/(?P<max>\d*[.,]?\d*)"
+
+if sys.platform == "linux":
+    ping_re = re.compile(
+        r"\w+/\w+/\w+/\w+ = (?P<min>\d*[.,]?\d*)/"
+        "(?P<avg>\d*[.,]?\d*)/(?P<max>\d*[.,]?\d*)"
+    )
+
+elif sys.platform == "win32":
+    ping_re = re.compile(
+        r"\w+ = (?P<min>\d+)ms, \w+ = "
+        "(?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms"
 )
 
 
@@ -181,3 +189,4 @@ else:
         worlds = BeautifulSoup(file_contents, "lxml")
     
     selector(get_select)
+
