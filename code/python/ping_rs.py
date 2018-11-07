@@ -64,10 +64,7 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                     if reply == 1:
                         start_ping = ping_cmd(url, 1)
 
-                        print(
-                            number_filter + ": ",
-                            str(start_ping[0]) + " MS"
-                        )
+                        print(number_filter + ": ", str(start_ping[0]) + " MS")
                         recommend[full_title] = int(start_ping[0])
 
                     elif (reply == 2 and
