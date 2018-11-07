@@ -1,15 +1,16 @@
+import httplib2
+import re
+import subprocess
+import sys
 from bs4 import BeautifulSoup
 from operator import itemgetter
-from pathlib import Path
 from os.path import expanduser
-import sys, re, subprocess, httplib2
+from pathlib import Path
 
 home = expanduser("~")
 file_save = Path("{}/.osrs_worlds.html".format(home))
 regions = ("United States", "United Kingdom", "Germany", "Australia")
 recommend = {}
-
-loc_re = re.compile("-{2}[A-U].")
 
 if sys.platform == "linux":
     ping_re = re.compile(
@@ -19,18 +20,20 @@ if sys.platform == "linux":
 
 elif sys.platform == "win32":
     ping_re = re.compile(
-        r"\w+ = (?P<min>\d+)ms, \w+ = "
-        "(?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms"
-)
+        r"\w+ = (?P<min>\d+)ms, \w+ = (?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms"
+    )
 
 
 def ping_cmd(world_url, ping_count):
     do_command = str(
         subprocess.Popen([
             "ping", "-c", str(ping_count),
-            "{}.{}".format(
-                world_url.lower().replace(" ", ""), "runescape.com")
-            ],
+            "{}.{}"
+            .format(
+                world_url.lower().replace(" ", ""),
+                "runescape.com"
+            )
+        ],
             stdout=subprocess.PIPE
         ).stdout.read()
     )
@@ -49,7 +52,8 @@ def ping_parse_data(reply, region_choice, num_to_ping):
         for info in worlds.find_all("tr"):
             title = info.contents[9].get_text()
 
-            for loc in info.find_all("td", attrs={"class": re.compile(loc_re)}):
+            for loc in info.find_all(
+                    "td", attrs={"class": re.compile("-{2}[A-U].")}):
                 number = loc.find_previous("a")
                 number_filter = number["id"].replace("slu-world-", "")
 
@@ -57,7 +61,24 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                     url = url.replace(" ", "").lower()
                     full_title = number_filter + ": " + title
 
-                    if reply == 3:
+                    if reply == 1:
+                        start_ping = ping_cmd(url, 1)
+
+                        print(
+                            number_filter + ": ",
+                            str(start_ping[0]) + " MS"
+                        )
+                        recommend[full_title] = int(start_ping[0])
+
+                    elif (reply == 2 and
+                            region_choice in loc.get_text()):
+
+                        start_ping = ping_cmd(url, 1)
+
+                        print(number_filter + ": ", str(start_ping[0]) + " MS")
+                        recommend[full_title] = int(start_ping[0])
+
+                    elif reply == 3:
                         if num_to_ping in number_filter:
                             print(
                                 "\nChecking ping on world {}..\n"
@@ -69,36 +90,15 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                             start_ping = ping_cmd(url, 10)
 
                             print(
-                                full_title + "\n"
-                                " Min = {} MS\n Max = {} MS\n Avg = {} MS\n"
+                                full_title + "\n",
+                                "Min = {} MS\n Max = {} MS\n Avg = {} MS\n"
                                 .format(
                                     start_ping[0], start_ping[1], start_ping[2]
                                 )
                             )
 
-                    else:
-                        if reply == 1:
-                            start_ping = ping_cmd(url, 1)
-
-                            print(
-                                number_filter + ": ",
-                                str(start_ping[0]) + " MS"
-                            )
-                            recommend[full_title] = int(start_ping[0])
-
-                        elif (reply == 2 and
-                                region_choice in loc.get_text()):
-
-                            start_ping = ping_cmd(url, 1)
-
-                            print(
-                                number_filter + ": ",
-                                str(start_ping[0]) + " MS"
-                            )
-                            recommend[full_title] = int(start_ping[0])
-
     if recommend:
-        print("\nRecommend worlds:")
+        print("\nRecommended worlds:")
         for x in range(1, 4):
             gimme = min(recommend.items(), key=itemgetter(1))
             print("\n  ", gimme[0], "\n    ", gimme[1], " MS")
@@ -136,8 +136,9 @@ def selector(selection):
             )
         )
 
-        print("\nChecking ping in the {} region..\n".format(
-            regions[region_select -1])
+        print(
+            "\nChecking ping in the {} region..\n"
+            .format(regions[region_select - 1])
         )
         ping_parse_data(selection, regions[region_select - 1], None)
 
@@ -156,7 +157,7 @@ if file_save.is_file():
             )
         )
     )
-    
+
     with open(file_save) as file_contents:
         worlds = BeautifulSoup(file_contents, "lxml")
 
@@ -164,10 +165,10 @@ if file_save.is_file():
 
     if get_select == 4:
         file_get("w+")
-    
+
         with open(file_save) as file_contents:
             worlds = BeautifulSoup(file_contents, "lxml")
-    
+
         get_select = int(
             input(
                 "Select:\n Ping types:\n\n\t1] All \n\t2] Region"
@@ -184,9 +185,8 @@ else:
             "\n\t3] Specific\n\nEnter: "
         )
     )
-    
+
     with open(file_save) as file_contents:
         worlds = BeautifulSoup(file_contents, "lxml")
-    
-    selector(get_select)
 
+    selector(get_select)
