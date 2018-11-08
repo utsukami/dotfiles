@@ -12,22 +12,26 @@ file_save = Path("{}/.osrs_worlds.html".format(home))
 regions = ("United States", "United Kingdom", "Germany", "Australia")
 recommend = {}
 
-if sys.platform == "linux":
-    ping_re = re.compile(
-        r"\w+/\w+/\w+/\w+ = (?P<min>\d*[.,]?\d*)/"
-        "(?P<avg>\d*[.,]?\d*)/(?P<max>\d*[.,]?\d*)"
-    )
-
-elif sys.platform == "win32":
-    ping_re = re.compile(
-        r"\w+ = (?P<min>\d+)ms, \w+ = (?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms"
-    )
-
 
 def ping_cmd(world_url, ping_count):
+    if (sys.platform == "linux" or
+            sys.platform == "darwin"):
+
+        count_arg = "-c"
+        ping_re = re.compile(
+            r"\w+/\w+/\w+/\w+ = (?P<min>\d*[.,]?\d*)/"
+            "(?P<avg>\d*[.,]?\d*)/(?P<max>\d*[.,]?\d*)"
+        )
+
+    elif sys.platform == "win32":
+        count_arg = "-n"
+        ping_re = re.compile(
+            r"\w+ = (?P<min>\d+)ms, \w+ = (?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms"
+        )
+
     do_command = str(
         subprocess.Popen([
-            "ping", "-c", str(ping_count),
+            "ping", count_arg, str(ping_count),
             "{}.{}"
             .format(
                 world_url.lower().replace(" ", ""),
@@ -101,6 +105,9 @@ def ping_parse_data(reply, region_choice, num_to_ping):
             print("\n  ", gimme[0], "\n    ", gimme[1], " MS")
             recommend.pop(gimme[0])
         print("\r")
+
+    if sys.platform == "win32":
+        input("Hit Return to exit.")
 
 
 def file_get(method):
