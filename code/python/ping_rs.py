@@ -1,36 +1,34 @@
-import httplib2
-import re
-import subprocess
-import sys
 from bs4 import BeautifulSoup
+from httplib2 import Http
 from operator import itemgetter
 from os.path import expanduser
 from pathlib import Path
+from re import compile, search
+from subprocess import Popen, PIPE
+from sys import platform
 
 home = expanduser("~")
 file_save = Path("{}/.osrs_worlds.html".format(home))
-regions = ("United States", "United Kingdom", "Germany", "Australia")
-recommend = {}
 
 
-def ping_cmd(world_url, ping_count):
-    if (sys.platform == "linux" or
-            sys.platform == "darwin"):
+def ping_command(world_url, ping_count):
+    if (platform == "linux" or
+            platform == "darwin"):
 
         count_arg = "-c"
-        ping_re = re.compile(
+        compile_ping_re = compile(
             r"\w+/\w+/\w+/\w+ = (?P<min>\d*[.,]?\d*)/"
             "(?P<avg>\d*[.,]?\d*)/(?P<max>\d*[.,]?\d*)"
         )
 
-    elif sys.platform == "win32":
+    elif platform == "win32":
         count_arg = "-n"
-        ping_re = re.compile(
+        compile_ping_re = compile(
             r"\w+ = (?P<min>\d+)ms, \w+ = (?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms"
         )
 
     do_command = str(
-        subprocess.Popen([
+        Popen([
             "ping", count_arg, str(ping_count),
             "{}.{}"
             .format(
@@ -38,11 +36,11 @@ def ping_cmd(world_url, ping_count):
                 "runescape.com"
             )
         ],
-            stdout=subprocess.PIPE
+            stdout=PIPE
         ).stdout.read()
     )
 
-    form_data = ping_re.search(do_command)
+    form_data = compile_ping_re.search(do_command)
 
     min_ms = int(round(float(form_data.group("min"))))
     max_ms = int(round(float(form_data.group("max"))))
@@ -51,13 +49,18 @@ def ping_cmd(world_url, ping_count):
     return min_ms, max_ms, avg_ms
 
 
-def ping_parse_data(reply, region_choice, num_to_ping):
+def parse_html_data(reply, region_choice, specific_world):
+    with open(file_save) as file_contents:
+        worlds = BeautifulSoup(file_contents, "lxml")
+
+    recommend = {}
+
     if 3 >= reply > 0:
         for info in worlds.find_all("tr"):
             title = info.contents[9].get_text()
 
             for loc in info.find_all(
-                    "td", attrs={"class": re.compile("-{2}[A-U].")}):
+                    "td", attrs={"class": compile("-{2}[A-U].")}):
                 number = loc.find_previous("a")
                 number_filter = number["id"].replace("slu-world-", "")
 
@@ -66,7 +69,7 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                     full_title = number_filter + ": " + title
 
                     if reply == 1:
-                        start_ping = ping_cmd(url, 1)
+                        start_ping = ping_command(url, 1)
 
                         print(number_filter + ": ", str(start_ping[0]) + " MS")
                         recommend[full_title] = int(start_ping[0])
@@ -74,13 +77,13 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                     elif (reply == 2 and
                             region_choice in loc.get_text()):
 
-                        start_ping = ping_cmd(url, 1)
+                        start_ping = ping_command(url, 1)
 
                         print(number_filter + ": ", str(start_ping[0]) + " MS")
                         recommend[full_title] = int(start_ping[0])
 
                     elif reply == 3:
-                        if num_to_ping in number_filter:
+                        if specific_world in number_filter:
                             print(
                                 "\nChecking ping on world {}..\n"
                                 "\nWorld #: Title\n Min = _ MS\n"
@@ -88,7 +91,7 @@ def ping_parse_data(reply, region_choice, num_to_ping):
                                 .format(number_filter)
                             )
 
-                            start_ping = ping_cmd(url, 10)
+                            start_ping = ping_command(url, 10)
 
                             print(
                                 full_title + "\n",
@@ -100,97 +103,96 @@ def ping_parse_data(reply, region_choice, num_to_ping):
 
     if recommend:
         print("\nRecommended worlds:")
-        for x in range(1, 4):
-            gimme = min(recommend.items(), key=itemgetter(1))
-            print("\n  ", gimme[0], "\n    ", gimme[1], " MS")
-            recommend.pop(gimme[0])
+        for lowest in range(1, 4):
+            get_recommend = min(recommend.items(), key=itemgetter(1))
+            print("\n  ", get_recommend[0], "\n    ", get_recommend[1], " MS")
+            recommend.pop(get_recommend[0])
         print("\r")
 
-    if sys.platform == "win32":
+    if platform == "win32":
         input("Hit Return to exit.")
 
 
-def file_get(method):
-    http = httplib2.Http()
+def file_get(method, message):
+    http = Http()
     status, response = http.request(
         "http://oldschool.runescape.com/slu?order=WLMPA"
     )
     data = BeautifulSoup(response, "lxml")
 
-    with open(file_save, method) as fp:
+    with open(file_save, method) as f:
         for lines in data.find_all("tr"):
-            fp.write(str(lines))
+            f.write(str(lines))
 
-    print("\nFetching new world file..\n")
+    print("\n{} file..\n".format(message))
 
 
 def selector(selection):
-    if selection == 1:
-        print("\nChecking ping on every world..\n")
-        ping_parse_data(selection, None, None)
+    regions = ("United States", "United Kingdom", "Germany", "Australia")
 
-    elif selection == 2:
-        region_select = int(
-            input(
-                "\nSelect:\n - Region:\n\n\t1] {}2] {}3] {}4] {}\nEnter: "
-                .format(
-                    regions[0] + "\n\t", regions[1] + "\n\t",
-                    regions[2] + "\n\t", regions[3] + "\n\t"
+    try:
+        if selection:
+            get_select = int(
+                input(
+                    "Select:\n - Ping types:\n\n\t1] {}"
+                    "2] {}3] {} - Options:\n\n\t4] {}"
+                    .format(
+                        "All\n\t", "Region\n\t", "Specific\n\n",
+                        "Update world list\n\nEnter: "
+                    )
                 )
             )
-        )
 
-        print(
-            "\nChecking ping in the {} region..\n"
-            .format(regions[region_select - 1])
-        )
-        ping_parse_data(selection, regions[region_select - 1], None)
-
-    elif selection == 3:
-        gimme_num = input("\nEnter world number: ")
-        ping_parse_data(selection, None, gimme_num)
-
-
-if file_save.is_file():
-    get_select = int(
-        input(
-            "Select:\n - Ping types:\n\n\t1] {}2] {}3] {} - Options:\n\n\t4] {}"
-            .format(
-                "All\n\t", "Region\n\t", "Specific\n\n",
-                "Update world list\n\nEnter: "
+        else:
+            get_select = int(
+                input(
+                    "Select:\n Ping types:\n\n\t1] All \n\t2] Region "
+                    "\n\t3] Specific\n\nEnter: "
+                )
             )
-        )
-    )
 
-    with open(file_save) as file_contents:
-        worlds = BeautifulSoup(file_contents, "lxml")
+        if get_select == 1:
+            print("\nChecking ping on every world..\n")
+            parse_html_data(get_select, None, None)
 
-    selector(get_select)
-
-    if get_select == 4:
-        file_get("w+")
-
-        with open(file_save) as file_contents:
-            worlds = BeautifulSoup(file_contents, "lxml")
-
-        get_select = int(
-            input(
-                "Select:\n Ping types:\n\n\t1] All \n\t2] Region"
-                "\n\t3] Specific\n\nEnter: "
+        elif get_select == 2:
+            region_select = int(
+                input(
+                    "\nSelect:\n - Region:\n\n\t1] {}2] {}3] {}4] {}\nEnter: "
+                    .format(
+                        regions[0] + "\n\t", regions[1] + "\n\t",
+                        regions[2] + "\n\t", regions[3] + "\n\t"
+                    )
+                )
             )
-        )
-        selector(get_select)
 
-else:
-    file_get("a+")
-    get_select = int(
-        input(
-            "Select:\n Ping types:\n\n\t1] All \n\t2] Region "
-            "\n\t3] Specific\n\nEnter: "
-        )
-    )
+            if len(regions) >= region_select >= 1:
+                print(
+                    "\nChecking ping in the {} region..\n"
+                    .format(regions[region_select - 1])
+                )
 
-    with open(file_save) as file_contents:
-        worlds = BeautifulSoup(file_contents, "lxml")
+                parse_html_data(get_select, regions[region_select - 1], None)
 
-    selector(get_select)
+        elif get_select == 3:
+            world_num = input("\nEnter world number: ")
+            parse_html_data(get_select, None, world_num)
+
+        elif get_select == 4:
+            file_get("w+", "Fetching new worlds")
+            selector(None)
+
+    except ValueError:
+        pass
+
+
+try:
+    if file_save.is_file():
+        selector(True)
+
+    else:
+        file_get("a+", "Worlds file not found, creating")
+        selector(None)
+
+except KeyboardInterrupt:
+    pass
