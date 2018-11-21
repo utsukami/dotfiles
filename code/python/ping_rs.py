@@ -1,11 +1,14 @@
 from bs4 import BeautifulSoup
 from httplib2 import Http
 from operator import itemgetter
+from os import stat
 from os.path import expanduser
 from pathlib import Path
 from re import compile, search
+from stat import ST_MTIME
 from subprocess import Popen, PIPE
 from sys import platform
+from time import time
 
 home = expanduser("~")
 file_save = Path("{}/.osrs_worlds.html".format(home))
@@ -188,7 +191,14 @@ def selector(selection):
 
 try:
     if file_save.is_file():
-        selector(True)
+        last_updated = round(time() - stat(file_save)[ST_MTIME])
+
+        if last_updated > 604800:
+            file_get("w+", "Worlds file outdated, fetching new")
+            selector(None)
+
+        else:
+            selector(True)
 
     else:
         file_get("a+", "Worlds file not found, creating")
