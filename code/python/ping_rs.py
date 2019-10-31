@@ -89,12 +89,10 @@ def parse_html_data(reply, region_choice, specific_world):
                         if specific_world in number_filter:
                             print(
                                 "\nChecking ping on world {}..\n"
-                                "\nWorld #: Title\n Min = _ MS\n"
-                                " Max = _ MS\n Avg = _ MS\n"
                                 .format(number_filter)
                             )
 
-                            start_ping = ping_command(url, 10)
+                            start_ping = ping_command(url, 15)
 
                             print(
                                 full_title + "\n",
@@ -116,7 +114,7 @@ def parse_html_data(reply, region_choice, specific_world):
         input("Hit Return to exit.")
 
 
-def file_get(method, message):
+def file_get(method, statement, action):
     http = Http()
     status, response = http.request(
         "http://oldschool.runescape.com/slu?order=WLMPA"
@@ -127,7 +125,7 @@ def file_get(method, message):
         for lines in data.find_all("tr"):
             f.write(str(lines))
 
-    print("\n{} file..\n".format(message))
+    print("\nFile:   {}\nAction: {}\n".format(statement, action))
 
 
 def selector(selection):
@@ -182,7 +180,7 @@ def selector(selection):
             parse_html_data(get_select, None, world_num)
 
         elif get_select == 4:
-            file_get("w+", "Fetching new worlds")
+            file_get("w+", "[OUTDATED]" ,"[UPDATE]")
             selector(None)
 
     except ValueError:
@@ -194,14 +192,14 @@ try:
         last_updated = round(time() - stat(file_save)[ST_MTIME])
 
         if last_updated > 604800:
-            file_get("w+", "Worlds file outdated, fetching new")
+            file_get("w+", "[OUTDATED]", "[UPDATE]")
             selector(None)
 
         else:
             selector(True)
 
     else:
-        file_get("a+", "Worlds file not found, creating")
+        file_get("a+", "[NOT FOUND]", "[CREATE]")
         selector(None)
 
 except KeyboardInterrupt:
