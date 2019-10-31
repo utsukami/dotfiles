@@ -6,7 +6,7 @@ phrase=$(grep -oP '(?<=[Gg]it )..[A-Za-z0-9]*' $files/git_listener | tail -n 1);
 h=43; i=1;
 
 if grep -q "$phrase" $files/git_comms $files/git_args > /dev/null; then
-	if [[ "$phrase" == "--help" ]]; then
+	if [[ "$phrase" == "--help" || "$phrase" == "help"  ]]; then
 		until [[ $i -eq 43 ]]; do
 			sleep .3; xdotool type --delay 45 "/$(echo $githelp | head --bytes $h | tail --bytes 43)";
 			xdotool key Return; sleep 1.2;

@@ -1,2 +1,2 @@
 #!/bin/bash
-paplay ~/.local/share/notify_sounds/noise3.ogg
+paplay ~/.local/share/notify_sounds/noise_old.ogg

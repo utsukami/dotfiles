@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR=vim
 export WINEESYNC=1
 export PULSE_LATENCY_MSEC=60
-export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool
+export _JAVA_OPTIONS=-Duser.home=$HOME/.local/share/runescape
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -26,6 +26,5 @@ alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
 alias vpno='sudo /etc/init.d/openvpn start'
 alias vpnf='sudo /etc/init.d/openvpn stop'
-alias fixclk='sudo /etc/init.d/ntp-client restart'
 alias streamlinkp='streamlink -p mpv'
 alias njava='nocorrect nohup java'

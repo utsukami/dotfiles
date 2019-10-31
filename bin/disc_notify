@@ -1,0 +1,1 @@
+dbus-monitor --session interface='org.freedesktop.Notifications' | grep --line-buffered "discord" | while read -r line; do wmctrl -b add,demands_attention -r Discord; done;

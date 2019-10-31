@@ -1,0 +1,7 @@
+i3subscribe mode | while read -r event; do
+	if [[ $event == *"def"* ]]; then
+		$(xmodmap $HOME/.config/xmodmap/default);
+	elif [[ $event == *"PvM"* ]]; then
+		$(xmodmap $HOME/.config/xmodmap/pvm);
+	fi
+done

@@ -1,324 +1,304 @@
-## Settings 
-
-# Mod1 = alt
+#==================================== Global ==================================#
+# Mod1 = Alt, Mod4 = Super
 set $mod Mod4
-mouse_warping output
 
-# window naming
-set $FOC client.focused
-set $UNF client.unfocused
-set $URG client.urgent
-set $FIN client.focused_inactive
+# Paths/Execs/Commands
+set $code $HOME/code
+set $java_home _JAVA_OPTIONS=-Duser.home=$HOME/.local/share/runescape
+set $ss_path "media/screenshots/%Y/%F_%T.png"
 
-# colors from xresources
-set_from_resource $red color9
+set $exe_nsi exec --no-startup-id
+set $exe_inf exec_always --no-startup-id
 
-# custom color
-set $whi "#fcfefb"
-set $bgb "#0d2028"
+set $rofi rofi -location 2 -width 15 -lines 5 -yoffset 32 -show run
 
-# window colors
-$FOC	$whi $whi $whi $whi $whi
-$URG	$red $red $red $red $red
-$UNF	$bgb $bgb $whi $bgb $bgb
-$FIN	$bgb $bgb $whi $bgb $bgb
+#==================================== Launch ==================================#
+# Polybar
+$exe_inf $HOME/.config/polybar/launch.sh
 
-# execs/paths
-set $xdo $HOME/code/xdotool
-set $cbp $HOME/code/bash
-set $exe exec
-set $shx exec --no-startup-id sh
-set $nsi exec --no-startup-id
-set $exa exec_always --no-startup-id
+# Compton
+#$exe_inf compton --config $HOME/.config/compton.conf -bz
 
-# windows
-set $fwin for_window
+# Firefox
+$exe_nsi firefox
 
-# bindings
-set $bsym bindsym 
-set $bcod bindcode 
-set $codr bindcode --release
+# Discord
+$exe_nsi /opt/discord/Discord
+$exe_nsi disc_notify &
 
-# workspaces
-set $ws1 "1"
-set $ws2 "2"
-set $ws3 3
-set $ws4 4
-set $ws5 5
-set $ws6 6
-set $ws7 7
-set $ws8 8
-set $ws9 9
+# Modes
+$exe_inf pkill -f "ifmodes"
+$exe_inf ifmodes
+#================================== Appearance ================================#
+set_from_resource $backgr     background
+set_from_resource $foregr     foreground
+set_from_resource $primar     primary
+set_from_resource $urgent     urgent
 
-workspace $ws1 output DVI-D-1
-workspace $ws2 output DVI-I-0
-#workspace $ws3 output DVI-D-1
+client.focused           $foregr  $foregr  $foregr  $foregr  $foregr
+client.focused_inactive  $backgr  $backgr  $backgr  $backgr  $backgr
+client.unfocused         $primar  $primar  $foregr  $primar  $primar
+client.urgent            $primar  $primar  $foregr  $primar  $primar
 
-## End Settings
+font pango:Inconsolata 14
 
-## Startup
+smart_borders on
+new_window pixel 2
 
-# bar
-$exa $HOME/.config/polybar/launch.sh
+gaps inner 5
+gaps outer 5
 
-# compton
-$exa compton --config $HOME/.config/compton.conf -bz
+#================================== Controls ==================================#
+#-------------------------------- Applications --------------------------------#
+# Discord
+bindsym $mod+F3 $exe_nsi /opt/discord/Discord
 
-# workspace 1
-#$nsi i3-msg "workspace 1; append_layout ~/.config/i3/me.json"
-#$nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/ && praygame
-#$nsi firefox
-$nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/ironman && irongame
-#$nsi urxvt
+# Discord link
+bindcode $mod+Control+61 $exe_nsi sh $code/bash/discord_link.sh
 
-# restore workspace 2
-$nsi i3-msg "workspace 2; append_layout ~/.config/i3/wp2.json"
-$nsi firefox
+# Firefox
+bindsym $mod+F1 $exe_nsi firefox
 
-# social
-$nsi /opt/discord/Discord
+# Lockscreen
+bindsym $mod+Control+Delete $exe_nsi sh $code/bash/lock.sh
 
-## End Startup
+# OSRS
+bindsym $mod+F2 $exe_nsi export $java_home/main && praygame
+bindsym $mod+F4 $exe_nsi export $java_home/iron && praygame
+bindsym $mod+F6 $exe_nsi export $java_home/suim && praygame
 
-## Scripts
+# Rofi
+bindcode $mod+41 $exe_nsi $rofi
 
-# lock
-$bsym $mod+Control+Delete $shx $cbp/lock.sh
+# Screenshot
+bindcode --release $mod+30 $exe_nsi scrot -s $HOME/$ss_path
 
-#scort
-$codr $mod+30 $nsi scrot -s $HOME'/screenshots/%Y/%b/%d/%H:%M:%S.png'
+# Steam
+bindsym $mod+F5 $exe_nsi steam
 
-# autotyping
-$bcod $mod+Control+61 $shx $cbp/discord_link.sh
-$bcod $mod+Control+53 $shx $cbp/git_bot.sh
+# Terminal
+bindsym $mod+Return $exe_nsi urxvtc
 
-## End Scripts
+#--------------------------------- Workspaces ---------------------------------#
+# Assign monitors
+workspace 1 output DisplayPort-0
+workspace 2 output DVI-D-0
+workspace 3 output DVI-D-0
 
-## Misc.
+# Switching
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+Tab workspace back_and_forth
 
-# font
-font pango:Inconsolata 20
+# Move windows
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
 
-# launcher
-$bcod $mod+41 $nsi rofi -show run;
+#--------------------------------- Navigation ---------------------------------#
+# Change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 
-# fullscreen mode
-$bsym $mod+i fullscreen toggle
+# Move focus
+bindsym $mod+Shift+H move left
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
 
-# drag floating windows
+bindsym $mod+Control+h move left 50 px
+bindsym $mod+Control+j move down 50 px
+bindsym $mod+Control+k move up 50 px
+bindsym $mod+Control+l move right 50 px
+
+#--------------------------------- Containers ---------------------------------#
+# Draging
 floating_modifier $mod
 
-# focus parent container
-$bsym $mod+a focus parent
+# Fullscreen
+bindsym $mod+i fullscreen toggle
 
-# terminal
-$bsym $mod+Return $nsi urxvt
+# Toggle tiling/floating
+bindsym $mod+Shift+space floating toggle
 
-# kill focused window
-$bsym $mod+Shift+u kill
+# Move focus between tiling/floating
+bindsym $mod+space focus mode_toggle
 
-# toggle tiling/floating
-$bsym $mod+Shift+space floating toggle
+# Change layout
+bindsym $mod+c layout tabbed
+bindcode $mod+32 layout toggle split
 
-# change focus between tiling/floating
-$bsym $mod+space focus mode_toggle
+# Focus parent
+bindsym $mod+a focus parent
 
-# split horizontal/vertical orientation
-$bsym $mod+w split h
-$bsym $mod+v split v
+# Kill focus
+bindsym $mod+Shift+u kill
 
-# change container layout
-$bsym $mod+c layout tabbed
-$bcod $mod+32 layout toggle split
+# Horizontal/Vertical orientation
+bindsym $mod+w split h
+bindsym $mod+v split v
 
-# restart/exit i3
-$bsym $mod+Shift+P restart
-$bsym $mod+Shift+O $exe "i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'i3-msg exit'"
+# thing
+bindsym $mod+Control+s move scratchpad
+bindsym $mod+Control+n scratchpad show
 
-# gaps
-set $default_gaps_inner 5
-set $default_gaps_outer 5
+#-------------------------------- Binding Modes -------------------------------#
+# Resize window
+bindcode $mod+40 mode "resize"
 
-gaps inner $default_gaps_inner
-gaps outer $default_gaps_outer
+# OSRS
+bindsym $mod+Control+1 mode "PvM"
+bindsym $mod+Control+2 mode "AHK"
+bindsym $mod+Control+3 mode "Alt"
 
-workspace $ws2 gaps inner 5
-workspace $ws2 gaps outer 15
-smart_borders on
+# Used for ifwinactive script
+bindsym $mod+0 mode "PvM"
 
-# change focus
-$bsym $mod+h focus left
-$bsym $mod+j focus down
-$bsym $mod+k focus up
-$bsym $mod+l focus right
+# Move cursor
+bindsym $mod+Up    $exe_nsi xdotool mousemove_relative -- -0   -500
+bindsym $mod+Left  $exe_nsi xdotool mousemove_relative -- -850 -0
 
-# move focused window
-$bsym $mod+Shift+H move left
-$bsym $mod+Shift+J move down
-$bsym $mod+Shift+K move up
-$bsym $mod+Shift+L move right
+bindsym $mod+Right $exe_nsi xdotool mousemove_relative 850 0
+bindsym $mod+Down  $exe_nsi xdotool mousemove_relative 0   500
 
-# move focused window quicker
-$bsym $mod+Control+h move left 50 px
-$bsym $mod+Control+j move down 50 px
-$bsym $mod+Control+k move up 50 px
-$bsym $mod+Control+l move right 50 px
+# Modes
+mode "AHK" {
+	# Row 4 keys (1, 2, 3, 4, 5)
+	bindcode 10 $exe_nsi sh $code/xdotool/right
+	bindcode 11 $exe_nsi sh $code/xdotool/menu2
+	bindcode 12 $exe_nsi sh $code/xdotool/left
+	bindcode --release 13 $exe_nsi xdotool key --clearmodifiers F4
+	bindcode --release 41 $exe_nsi xdotool key --clearmodifiers F9
+	
+	# Row 3 keys (' , . P)
+	bindcode 24 $exe_nsi sh $code/xdotool/right
+	bindcode 25 $exe_nsi sh $code/xdotool/menu4
+	bindcode 26 $exe_nsi sh $code/xdotool/left
+	bindcode --release 27 $exe_nsi $code/xdotool/escape
+#	bindcode --release 41 $exe_nsi $code/xdotool/escape
+	
+	bindsym $mod+Shift+P restart
+	bindsym $mod+1 workspace 1
+	bindsym $mod+2 workspace 2
+	bindsym $mod+3 workspace 3
+	bindsym $mod+4 workspace 4
+	bindsym $mod+5 workspace 5
+	bindsym $mod+6 workspace 6
+	bindsym $mod+6 workspace 7
+	bindsym $mod+6 workspace 8
+	bindsym $mod+6 workspace 9
+	bindsym $mod+Tab workspace back_and_forth
 
-# start programs 
-$bsym $mod+F1 $nsi firefox
-$bsym $mod+F2 $nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/main && praygame
-$bsym $mod+F3 $nsi /opt/discord/Discord
-$bsym $mod+F4 $nsi export _JAVA_OPTIONS=-Duser.home=$HOME/.oldschool/ironman && praygame
-$bsym $mod+F5 $nsi steam
+	# Misc
+#	bindcode --release 65 $nsi xdotool key 6
+#	bindcode 38 $shx $xdo/save_wrist
 
-# border/window behavior 
-$fwin [class="^.*"] border pixel 3
-$fwin [class="Steam" title="(?i)"] floating enable 
-$fwin [class="(?i)RuneLite" title="(?i)"] border pixel 2
-$fwin [class="(?i)RuneLite" title="(?i)"] floating enable
-#$fwin [class="mpv" title="(?i)"] floating enable 
-$fwin [class="(?i)pavucontrol"] floating enable
+	bindcode 49 mode "default"
+	bindsym $mod+0 mode "default"
+	bindsym $mod+Control+2 mode "default"
+}
 
-$fwin [window_role="pop-up"] floating enable
-$fwin [window_role="bubble"] floating enable
-$fwin [window_role="task_dialog"] floating enable
-$fwin [window_role="Preferences"] floating enable
-$fwin [window_type="dialog"] floating enable
-$fwin [window_type="menu"] floating enable
+mode "Alt" {
+	bindcode --release 41 $exe_nsi xdotool key Escape
+	bindcode 38 $exe_nsi $code/xdotool/save_wrist
+	bindcode --release 39 $exe_nsi xdotool key F10
+
+	bindsym $mod+Shift+P restart
+	bindsym $mod+1 workspace 1
+	bindsym $mod+2 workspace 2
+	bindsym $mod+3 workspace 3
+	bindsym $mod+4 workspace 4
+	bindsym $mod+5 workspace 5
+	bindsym $mod+6 workspace 6
+	bindsym $mod+6 workspace 7
+	bindsym $mod+6 workspace 8
+	bindsym $mod+6 workspace 9
+	bindsym $mod+Tab workspace back_and_forth
+
+	bindcode 49 mode "default"
+	bindsym $mod+0 mode "default"
+	bindsym $mod+Control+3 mode "default"
+}
+
+mode "PvM" {
+	bindsym $mod+Shift+P restart
+
+	bindsym $mod+F1 workspace 1
+	bindsym $mod+Escape workspace 2
+	bindsym $mod+F5 workspace 3
+	bindsym $mod+F6 workspace 4
+	bindsym $mod+F4 workspace 5
+	bindsym $mod+6 workspace 6
+	bindsym $mod+6 workspace 7
+	bindsym $mod+6 workspace 8
+	bindsym $mod+6 workspace 9
+	bindsym $mod+Tab workspace back_and_forth
+
+	bindcode 49 mode "default"
+    bindsym $mod+0 mode "default"
+	bindsym $mod+Control+F1 mode "default"
+}
+
+mode "resize" {
+	bindsym h resize shrink width  1 px or 1 ppt
+	bindsym j resize grow height   1 px or 1 ppt
+	bindsym k resize shrink height 1 px or 1 ppt
+	bindsym l resize grow width    1 px or 1 ppt
+
+	bindsym Control+H resize shrink width  45 px or 45 ppt
+	bindsym Control+J resize grow height   45 px or 45 ppt
+	bindsym Control+K resize shrink height 45 px or 45 ppt
+	bindsym Control+L resize grow width    45 px or 45 ppt
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+}
+
+#-------------------------------- Miscellaneous -------------------------------#
+# Refresh
+bindsym $mod+Shift+P restart
+
+# Exit
+bindsym $mod+Shift+O $exe "i3-nagbar -t warning -m 'Exit i3?' \
+                           -b 'Yes' 'i3-msg exit'"
+
+#============================= Window properties ==============================#
+# General floating
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="Preferences"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="menu"] floating enable
+
+# Specific behavior
+for_window [class="(?i)steam"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable
+for_window [class="Spotify"] move to workspace 6
+for_window [class="Spotify"] floating enable
+for_window [class="(?i)" title="RuneLite"] border pixel 2
+for_window [class="(?i)" title="RuneLite"] floating enable
 
 focus_on_window_activation none
 no_focus [window_role="(?i)"]
 
-## End Misc.
-
-## Workspaces
-
-# change workspace
-$bsym $mod+1 workspace $ws1
-$bsym $mod+2 workspace $ws2
-$bsym $mod+3 workspace $ws3
-$bsym $mod+4 workspace $ws4
-$bsym $mod+5 workspace $ws5
-$bsym $mod+6 workspace $ws6
-$bsym $mod+7 workspace $ws7
-$bsym $mod+8 workspace $ws8
-$bsym $mod+9 workspace $ws9
-$bsym $mod+Tab workspace back_and_forth
-
-# move container to workspace
-$bsym $mod+Shift+1 move container to workspace $ws1
-$bsym $mod+Shift+2 move container to workspace $ws2
-$bsym $mod+Shift+3 move container to workspace $ws3
-$bsym $mod+Shift+4 move container to workspace $ws4
-$bsym $mod+Shift+5 move container to workspace $ws5
-$bsym $mod+Shift+6 move container to workspace $ws6
-$bsym $mod+Shift+7 move container to workspace $ws7
-$bsym $mod+Shift+8 move container to workspace $ws8
-$bsym $mod+Shift+9 move container to workspace $ws9
-
-# workspace gaps
-
-# assigning to workspaces
-#assign [class="(?i)net-runelite-client-RuneLite"] $ws1
-#assign [class="(?i)firefox"] $ws2
-assign [class="(?i)player"]  $ws3
-assign [class="(?i)discord"] $ws3
-assign [class="(?i)steam"]   $ws4
-assign [class="(?i)RocketLeague"] $ws5
-## End Workspaces
-
-## Modes/AHK
-
-# enter modes
-$bsym $mod+Control+1 mode "jad"
-$bsym $mod+Control+2 mode "ahk"
-$bsym $mod+0 mode "ahk"
-#$bsym $mod+0 mode "alt"
-$bsym $mod+Control+3 mode "alt"
-$bcod $mod+40 mode "resize"
-
-# wristsavers 
-$bsym $mod+Left $nsi xdotool mousemove_relative -- -850 -0
-$bsym $mod+Right $nsi xdotool mousemove_relative 850 0
-$bsym $mod+Down $nsi xdotool mousemove_relative 0 500
-$bsym $mod+Up $nsi xdotool mousemove_relative -- -0 -500
-
-# modes
-mode "ahk" {
-	# row 4 keys (1, 2, 3)
-	$bcod 10 $shx $xdo/right
-	$bcod 11 $shx $xdo/menu2
-	$bcod 12 $shx $xdo/left
-	$codr 13 $nsi xdotool key --clearmodifiers F4
-	$codr 41 $nsi xdotool key --clearmodifiers F9
-	
-	# row 3 keys (' , . P)
-	$bcod 24 $shx $xdo/right
-	$bcod 25 $shx $xdo/menu4
-	$bcod 26 $shx $xdo/left
-	$codr 27 $shx $xdo/escape
-	#$codr 41 $nsi xdotool key Escape
-	
-	$bsym $mod+1 workspace $ws1
-	$bsym $mod+2 workspace $ws2
-	$bsym $mod+3 workspace $ws3
-	$bsym $mod+4 workspace $ws4
-	$bsym $mod+5 workspace $ws5
-	$bsym $mod+6 workspace $ws6
-	$bsym $mod+Tab workspace back_and_forth
-
-	# misc keys
-	#$codr 65 $nsi $xdo/left
-#	$bcod 38 $shx $xdo/save_wrist
-
-	$bcod 49 mode "default"
-	$bsym $mod+Control+2 mode "default"
-	$bsym $mod+0 mode "default"
-	$bsym $mod+Shift+P restart
-}
-
-mode "alt" {
-	$codr 41 $nsi xdotool key Escape
-	$bcod 38 $shx $xdo/save_wrist
-	$codr 39 $nsi xdotool key F10
-
-	$bsym $mod+1 workspace $ws1
-	$bsym $mod+2 workspace $ws2
-	$bsym $mod+3 workspace $ws3
-	$bsym $mod+4 workspace $ws4
-	$bsym $mod+5 workspace $ws5
-	$bsym $mod+6 workspace $ws6
-	$bsym $mod+Tab workspace back_and_forth
-
-	$bcod 49 mode "default"
-	$bsym $mod+0 mode "default"
-	$bsym $mod+Control+3 mode "default"
-	$bsym $mod+Shift+P restart
-}
-
-mode "jad" {
-	$codr 10 $nsi xdotool key F1
-	$codr 11 $shx $xdo/escape
-	$codr 12 $nsi xdotool key F5
-	$codr 13 $nsi xdotool key F6
-
-	$bcod 49 mode "default"
-	$bsym $mod+Control+1 mode "default"
-}
-
-mode "resize" {
-	$bsym h resize shrink width 1 px or 1 ppt
-	$bsym j resize grow height 1 px or 1 ppt
-	$bsym k resize shrink height 1 px or 1 ppt
-	$bsym l resize grow width 1 px or 1 ppt
-
-	$bsym Control+H resize shrink width 45 px or 45 ppt
-	$bsym Control+J resize grow height 45 px or 45 ppt
-	$bsym Control+K resize shrink height 45 px or 45 ppt
-	$bsym Control+L resize grow width 45 px or 45 ppt
-
-	$bsym Return mode "default"
-	$bsym Escape mode "default"
-}
-
-## End Modes/AHK
+# Assign to workspaces
+#assign [class="(?i)firefox"] workspace 2
+assign [class="(?i)discord"] workspace 3
+assign [class="(?i)steam"] workspace 4
+assign [class="(?i)RocketLeague"] workspace 5
