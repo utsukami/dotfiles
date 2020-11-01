@@ -1,178 +1,215 @@
-[colors]
-bgc = "#00000000"
-blk = ${xrdb:color0}
-red = ${xrdb:color1}
-gre = ${xrdb:color2}
-yel = ${xrdb:color3} 
-blu = ${xrdb:color4} 
-mag = ${xrdb:color5}
-cya = ${xrdb:color6} 
-whi = ${xrdb:color7} 
+[rice]
+include-file = ~/.config/polybar/colors
 
 [global]
-monitor = DisplayPort-0
-width = 100%
-height = 27
-offset-x = 0
-offset-y = 1
-fixed-center = true
+monitor = DisplayPort-1
+
+bottom = true
 wm-restack = i3
-override-redirect = false
+enable-ipc = true
+fixed-center = true
+override-redirect = true
 
-background = ${colors.bgc}
-foreground = ${colors.whi}
+background = ${colors.background}
+foreground = ${colors.white}
 
-line-size = 3
+radius = 8
+separator = "|"
 
 padding-left = 1
 padding-right = 1
+module-margin-left = 1
+module-margin-right = 1
 
-module-margin-left = 2
-module-margin-right = 2
+[workspaces]
+include-file = ~/.config/polybar/workspaces
 
-font-0 = Iosevka:weight=medium:size=12;2
-font-1 = Font Awesome 5 Free Solid:size=13;3
-font-2 = Font Awesome 5 Brands Regular:size=13;3
-font-3 = Font Awesome 5 Free Regular:size=13;3
-font-4 = Iosevka:weight=medium:size=17;0
-
-[bar/top]
+[bar/bottom_right]
 inherit = global
 
-modules-left = notify
-modules-center = i3
-modules-right = date pavolume
+width = 150
+height = 24
+offset-x = 1750
+offset-y = 6
 
-[bar/bot]
+modules-center = pavolume time options_menu
+
+[bar/volume_bar]
 inherit = global
-bottom = true
 
-modules-left = i3Mode
-modules-center = music
-modules-right = powermenu
+width = 105
+height = 18
+offset-x = 1713
+offset-y = 33
+
+modules-center = volume_slider
+
+[bar/date]
+inherit = global
+
+font-0 = Fira Code:weight=medium:size=10;2
+
+width = 105
+height = 18
+offset-x = 1772
+offset-y = 33
+
+modules-center = date
+
+[bar/options]
+inherit = global
+
+font-0 = Fira Code:weight=medium:size=10;3
+font-2 = Font Awesome 5 Free Solid:size=10;3
+font-3 = Font Awesome 5 Brands Regular:size=10;3
+font-4 = Font Awesome 5 Free Regular:size=10;3
+
+width = 66
+height = 18
+offset-x = 1847
+offset-y = 33
+
+modules-center = power lock
+
+[bar/ahk]
+inherit = global
+
+font-0 = Fira Code:weight=medium:size=10;2
+
+width = 70
+height = 18
+offset-x = 15
+offset-y = 33
+
+modules-center = i3Mode
+
+[module/volume_slider]
+type = internal/pulseaudio
+format-volume = "<bar-volume>"
+
+bar-volume-width = 10
+bar-volume-gradient = false
+
+bar-volume-foreground-0 = ${colors.white}
+bar-volume-foreground-1 = ${colors.white}
+bar-volume-foreground-2 = ${colors.white}
+bar-volume-foreground-3 = ${colors.white}
+bar-volume-foreground-4 = ${colors.white}
+bar-volume-foreground-5 = ${colors.white}
+bar-volume-foreground-6 = ${colors.white}
+bar-volume-empty-foreground = ${colors.grey}
+
+bar-volume-indicator = ━
+bar-volume-indicator-font = 0
+bar-volume-fill = ━
+bar-volume-fill-font = 0
+bar-volume-empty = ━
+bar-volume-empty-font = 0
 
 [module/i3]
 type = internal/i3
-ws-icon-0 = 1;
-ws-icon-1 = 2;
-ws-icon-2 = 3;
-ws-icon-3 = 4;
-ws-icon-4 = 5;
-ws-icon-5 = 6;
+ws-icon-0 = 1;一
+ws-icon-1 = 2;二
+ws-icon-2 = 3;三
+ws-icon-3 = 4;四
+ws-icon-4 = 5;五
+ws-icon-5 = 6;六
+ws-icon-6 = 7;七
+ws-icon-7 = 8;八
+ws-icon-8 = 9;九
 ws-icon-default = 
 
 format = <label-state>
-format-foreground = ${colors.whi}
+format-foreground = ${colors.white}
 index-sort = true
 wrapping-scroll = true
 
 label-focused = %icon%
-label-focused-underline = ${colors.blu}
-label-focused-overline = ${colors.whi}
+label-focused-foreground = ${colors.green}
+label-focused-background = ${colors.this}
 label-focused-padding = 1
 
 label-unfocused = %icon%
+label-unfocused-foreground = ${colors.grey}
 label-unfocused-padding = 1
 
 label-visible = %icon%
-label-visible-underline = ${colors.blu}
 label-visible-padding = 1
 
 label-urgent = %icon%
 label-urgent-padding = 1
-label-urgent-underline = ${colors.red}
-label-urgent-overline = ${colors.red}
-
-[module/mpd]
-type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
-
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-
-label-song-maxlen = 25
-label-song-ellipsis = true
+label-urgent-foreground = ${colors.red}
 
 [module/date]
-type = internal/date
+type = custom/script
+interval = 1800
+
+exec = echo $(date +'%a, %b %d')
+
+[module/time]
+type = custom/script
 interval = 1
 
-date = " %a, %b %d     %H:%M"
-time-alt = " %H:%M"
+exec = echo $(date +"%H:%M")
 
-label = %date%%time%
-format = <label>
-
-[module/weather]
-type = custom/script
-interval = 600
-format = <label>
-exec = ~/.config/polybar/weathericons
+click-left = "~/.config/polybar/toggle date"
 
 [module/pavolume]
 type = custom/script
 tail = true
 label = %output%
+
 exec = ~/.config/polybar/pavolume.sh --listen
+
+click-left = "~/.config/polybar/toggle volume_bar"
+click-middle = ~/.config/polybar/pavolume.sh --togmute
 click-right = exec pavucontrol
-click-left = ~/.config/polybar/pavolume.sh --togmute
+
 scroll-up = ~/.config/polybar/pavolume.sh --up
 scroll-down = ~/.config/polybar/pavolume.sh --down
 
-[module/notify]
+[module/launcher]
 type = custom/script
-exec =  echo " "
-format-prefix = ""
-format-prefix-foreground = ${colors.whi}
-click-left = xdotool key Control+grave
-click-right = xdotool key Control+space
+tail = true
+exec = ~/.config/polybar/menu_color.sh
 
-[module/powermenu]
+click-left = "rofi -location 2 -width 15 -lines 5 -yoffset 32 -show run"
+click-right = "~/.config/polybar/toggle ahk"
+
+[module/options_menu]
+type = custom/script
+format-foreground = ${colors.purple}
+
+exec = echo ""
+;exec = echo 
+
+click-left = "~/.config/polybar/toggle options"
+
+[module/power]
 type = custom/menu
-
 expand-right = true
-format = <menu> <label-toggle>
 
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.whi}
-label-close = 
+label-open = 
+label-open-foreground = ${colors.white}
+label-close = " "
 label-close-foreground = ${colors.red}
-label-separator-foreground = ${colors.whi}
 
-menu-0-0 = " Lock "
-menu-0-0-exec = pkill compton && betterlockscreen --lock
-menu-0-1 = "  Power "
-menu-0-1-exec = menu-open-1
-menu-0-2 = "  Sleep "
-menu-0-2-exec = menu-open-2
-menu-0-3 = "  i3"
-menu-0-3-exec = menu-open-3
+menu-0-0 = " "
+menu-0-0-exec = "~/.config/polybar/toggle options"
+menu-0-1 = " "
+menu-0-1-exec = echo " "
 
-menu-1-0 = " Poweroff "
-menu-1-0-exec = sudo poweroff
-menu-1-1 = "  Restart" 
-menu-1-1-exec = sudo reboot
+[module/lock]
+type = custom/script
+tail = true
 
-menu-2-0 = " On "
-menu-2-0-exec = xset s 600 600 && xset +dpms
-menu-2-1 = " Off"
-menu-2-1-exec = xset s 0 0 && xset -dpms
-
-menu-3-0 = " Kill "
-menu-3-0-exec = i3-msg exit
-menu-3-1 = "  Refresh"
-menu-3-1-exec = i3-msg restart
+exec = echo ""
 
 [module/i3Mode]
 type = custom/script
 tail = true
 
-label = %{T5}%output%%{T-}
+label = %{T0}%output%%{T-}
 exec = ~/.config/polybar/wm_mode.sh
 
 [module/music]
