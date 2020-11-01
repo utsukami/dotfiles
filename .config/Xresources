@@ -66,7 +66,7 @@ URxvt.tabbed.tab-bg     : 0
 !-----------------------------------  rofi  -----------------------------------!
 rofi.color-enabled   : true
 rofi.separator-style : none
-rofi.font            : Iosveka 12
+rofi.font            : Fira Code Medium 11
 rofi.bw              : 2
 rofi.hide-scrollbar  : true
 rofi.terminal        : urxvt
