@@ -1,37 +1,37 @@
 [global]
     monitor = 0
-    font = "Iosevka-medium 12"
+    font = "Fira Code medium 11"
     markup =  full
     sort = yes
     idle_threshold = 10
     geometry = "150x0+10+40"
     alignment = center
     history_length = 20
-    show_age_threshold = -1
+    show_age_threshold = 500
     show_indicators = no
     sticky_history = yes
     follow = none
     word_wrap = yes
-    separator_height = 4
+    separator_height = 2
     padding = 8
     horizontal_padding = 0
     vertical_padding = 2
     separator_color = frame
     startup_notification = false
-    frame_color = "#cc575d"
     transparency = 15
     frame_width = 2
+    frame_color = "#ff1155"
 
 [shortcuts]
     close_all = ctrl+space
     history = ctrl+grave
 
 [urgency_low]
-    background = "#323132"
+    background = "#19192e"
     foreground = "#e1e5ea"
 
 [urgency_normal]
-    background = "#323132"
+    background = "#19192e"
     foreground = "#e1e5ea"
 
 [urgency_critical]
@@ -47,14 +47,16 @@
 
 [runelite_iron]
     summary = "RuneLite"
-    body = "*Muimina*"
+    body = "*Alch Clues*"
     format = "<b>%s %p</b>\n%b"
     script = iron_alert
-    urgency = low
+    urgency = normal
 
 [discord]
     appname = discord
+    frame_color = "#5577ee"
     format = "%i <b>Discord</b>\n%s"
+    urgency = low
 
 [spotify]
     appname = Spotify
