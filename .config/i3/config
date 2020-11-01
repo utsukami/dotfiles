@@ -15,9 +15,10 @@ set $rofi rofi -location 2 -width 15 -lines 5 -yoffset 32 -show run
 #==================================== Launch ==================================#
 # Polybar
 $exe_inf $HOME/.config/polybar/launch.sh
+bindsym $mod+Shift+A $exe_nsi $HOME/.config/polybar/launch.sh
 
 # Compton
-#$exe_inf compton --config $HOME/.config/compton.conf -bz
+$exe_inf compton --config $HOME/.config/compton.conf -bz
 
 # Firefox
 $exe_nsi firefox
@@ -27,8 +28,8 @@ $exe_nsi /opt/discord/Discord
 $exe_nsi disc_notify &
 
 # Modes
-$exe_inf pkill -f "ifmodes"
-$exe_inf ifmodes
+$exe_inf ifmodes&
+
 #================================== Appearance ================================#
 set_from_resource $backgr     background
 set_from_resource $foregr     foreground
@@ -45,8 +46,9 @@ font pango:Inconsolata 14
 smart_borders on
 new_window pixel 2
 
-gaps inner 5
-gaps outer 5
+gaps inner 10
+gaps outer 10
+gaps bottom 30
 
 #================================== Controls ==================================#
 #-------------------------------- Applications --------------------------------#
@@ -65,7 +67,9 @@ bindsym $mod+Control+Delete $exe_nsi sh $code/bash/lock.sh
 # OSRS
 bindsym $mod+F2 $exe_nsi export $java_home/main && praygame
 bindsym $mod+F4 $exe_nsi export $java_home/iron && praygame
-bindsym $mod+F6 $exe_nsi export $java_home/suim && praygame
+
+bindsym $mod+Shift+F2 $exe_nsi export $java_home/bMain && praygame 1
+bindsym $mod+Shift+F4 $exe_nsi export $java_home/bIron && praygame 1
 
 # Rofi
 bindcode $mod+41 $exe_nsi $rofi
@@ -116,14 +120,19 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # Move focus
-bindsym $mod+Shift+H move left
-bindsym $mod+Shift+J move down
 bindsym $mod+Shift+K move up
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+H move left
 bindsym $mod+Shift+L move right
 
-bindsym $mod+Control+h move left 50 px
-bindsym $mod+Control+j move down 50 px
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+
 bindsym $mod+Control+k move up 50 px
+bindsym $mod+Control+j move down 50 px
+bindsym $mod+Control+h move left 50 px
 bindsym $mod+Control+l move right 50 px
 
 #--------------------------------- Containers ---------------------------------#
@@ -182,15 +191,11 @@ mode "AHK" {
 	bindcode 10 $exe_nsi sh $code/xdotool/right
 	bindcode 11 $exe_nsi sh $code/xdotool/menu2
 	bindcode 12 $exe_nsi sh $code/xdotool/left
-	bindcode --release 13 $exe_nsi xdotool key --clearmodifiers F4
-	bindcode --release 41 $exe_nsi xdotool key --clearmodifiers F9
 	
 	# Row 3 keys (' , . P)
 	bindcode 24 $exe_nsi sh $code/xdotool/right
 	bindcode 25 $exe_nsi sh $code/xdotool/menu4
 	bindcode 26 $exe_nsi sh $code/xdotool/left
-	bindcode --release 27 $exe_nsi $code/xdotool/escape
-#	bindcode --release 41 $exe_nsi $code/xdotool/escape
 	
 	bindsym $mod+Shift+P restart
 	bindsym $mod+1 workspace 1
@@ -203,10 +208,6 @@ mode "AHK" {
 	bindsym $mod+6 workspace 8
 	bindsym $mod+6 workspace 9
 	bindsym $mod+Tab workspace back_and_forth
-
-	# Misc
-#	bindcode --release 65 $nsi xdotool key 6
-#	bindcode 38 $shx $xdo/save_wrist
 
 	bindcode 49 mode "default"
 	bindsym $mod+0 mode "default"
@@ -249,7 +250,10 @@ mode "PvM" {
 	bindsym $mod+6 workspace 9
 	bindsym $mod+Tab workspace back_and_forth
 
-	bindcode 49 mode "default"
+	bindcode Control+31 $exe_nsi $code/xdotool/spec 1
+	bindcode Control+60 $exe_nsi $code/xdotool/spec 0
+
+	bindcode Shift+49 mode "default"
     bindsym $mod+0 mode "default"
 	bindsym $mod+Control+F1 mode "default"
 }
@@ -277,6 +281,9 @@ bindsym $mod+Shift+P restart
 bindsym $mod+Shift+O $exe "i3-nagbar -t warning -m 'Exit i3?' \
                            -b 'Yes' 'i3-msg exit'"
 
+# disable drag to resize
+bindsym --border button1 nop
+
 #============================= Window properties ==============================#
 # General floating
 for_window [window_role="pop-up"] floating enable
@@ -291,8 +298,12 @@ for_window [class="(?i)steam"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable
 for_window [class="Spotify"] move to workspace 6
 for_window [class="Spotify"] floating enable
-for_window [class="(?i)" title="RuneLite"] border pixel 2
-for_window [class="(?i)" title="RuneLite"] floating enable
+for_window [class="keepassxc"] floating enable
+for_window [class="KeePassXC"] floating enable
+for_window [class="net-runelite-client-RuneLite"] border pixel 2
+for_window [class="net-runelite-client-RuneLite"] floating enable
+for_window [class="net-runelite-client-RuneLite"] resize set 775 553
+for_window [class="net-runelite-launcher-Launcher"] floating enable
 
 focus_on_window_activation none
 no_focus [window_role="(?i)"]
@@ -301,4 +312,3 @@ no_focus [window_role="(?i)"]
 #assign [class="(?i)firefox"] workspace 2
 assign [class="(?i)discord"] workspace 3
 assign [class="(?i)steam"] workspace 4
-assign [class="(?i)RocketLeague"] workspace 5
