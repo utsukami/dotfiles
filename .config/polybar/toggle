@@ -1,0 +1,2 @@
+bar_id=$(ps aux | grep "[p]olybar $1" | awk {'print $2'})
+polybar-msg -p $bar_id cmd toggle
