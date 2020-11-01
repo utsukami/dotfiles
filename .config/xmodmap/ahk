@@ -1,0 +1,4 @@
+  keycode  13 = F4 F4 F4 F4 F4 F4 XF86Switch_VT_4 F4 F4 XF86Switch_VT_4 F4 F4 F4 F4 XF86Switch_VT_4
+  keycode  14 = F6 F6 F6 F6 F6 F6 XF86Switch_VT_6 F6 F6 XF86Switch_VT_6 F6 F6 F6 F6 XF86Switch_VT_6
+  keycode  27 = Escape NoSymbol Escape NoSymbol Escape
+  keycode  41 = F9 F9 F9 F9 F9 F9 XF86Switch_VT_9 F9 F9 XF86Switch_VT_9 F9 F9 F9 F9 XF86Switch_VT_9
