@@ -2,6 +2,7 @@
 ## ZSH
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
+export PATH="${PATH}:${HOME}/.local/bin/"
 
 ZSH_THEME="minimal"
 HYPHEN_INSENSITIVE="true"
@@ -24,7 +25,7 @@ alias ...='cd ../..'
 alias svim='sudo vim'
 alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
-alias vpno='sudo /etc/init.d/openvpn start'
-alias vpnf='sudo /etc/init.d/openvpn stop'
+alias vpno='wg-quick up'
+alias vpnf='wg-quick down'
 alias streamlinkp='streamlink -p mpv'
 alias njava='nocorrect nohup java'
