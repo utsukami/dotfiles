@@ -1,7 +1,15 @@
+for pid in $(pgrep -fl "/bin/sh -c ifmodes"); do
+	if [ $pid != $$ ]; then
+		kill -9 $pid
+	fi
+done
+
 i3subscribe mode | while read -r event; do
 	if [[ $event == *"def"* ]]; then
 		$(xmodmap $HOME/.config/xmodmap/default);
 	elif [[ $event == *"PvM"* ]]; then
 		$(xmodmap $HOME/.config/xmodmap/pvm);
+	elif [[ $event == *"AHK"* ]]; then
+		$(xmodmap $HOME/.config/xmodmap/ahk);
 	fi
 done
