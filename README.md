@@ -1,4 +1,4 @@
 # dotfiles
-My ~~amazing~~ dotfiles & code/scripts.
+dotfiles & random code/scripts
 
-![Screenshot](https://i.imgur.com/OgPuKD0.png)
+![Screenshot](https://i.imgur.com/SmfTVy2.png)
