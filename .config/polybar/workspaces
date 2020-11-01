@@ -1,0 +1,39 @@
+[bar/workspace]
+inherit = global
+
+offset-x = 100
+offset-y = 6
+
+modules-left = launcher i3
+
+[bar/workspace2]
+inherit = bar/workspace
+width = 134
+
+[bar/workspace3]
+inherit = bar/workspace
+width = 171
+
+[bar/workspace4]
+inherit = bar/workspace
+width = 208
+
+[bar/workspace5]
+inherit = bar/workspace
+width = 245
+
+[bar/workspace6]
+inherit = bar/workspace
+width = 282
+
+[bar/workspace7]
+inherit = bar/workspace
+width = 319
+
+[bar/workspace8]
+inherit = bar/workspace
+width = 356
+
+[bar/workspace9]
+inherit = bar/workspace
+width = 393

@@ -1,0 +1,19 @@
+[colors]
+background = "#19192e"
+grey       = "#555862"
+this       = "#E6383856"
+black      = ${xrdb:color0}
+red        = ${xrdb:color1}
+green      = ${xrdb:color2}
+yellow     = ${xrdb:color3}
+blue       = ${xrdb:color4}
+purple     = ${xrdb:color5}
+cyan       = ${xrdb:color6}
+white      = ${xrdb:color7}
+
+[global]
+font-0 = Fira Code:weight=medium:size=11;2
+font-1 = VL Gothic:weight=semibold:size=14;4
+font-2 = Font Awesome 5 Free Solid:size=11;3
+font-3 = Font Awesome 5 Brands Regular:size=11;3
+font-4 = Font Awesome 5 Free Regular:size=11;3
