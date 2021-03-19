@@ -29,22 +29,18 @@ def file_get(method, world_file):
 
 
 def menu_construct(menu, whatis, updated):
-    full_string = f"\nSelect:\n - {whatis}:\n\n\t"
+    fin_str = f"\nSelect:\n - {whatis}:\n\n\t"
 
-    for entries in range(1, len(menu) + 1):
-        full_string += f"{entries}] {menu[entries -1]}"
+    for opt in range(1, len(menu) + 1):
+        fin_str += f"{opt}] {menu[opt -1]}"
+        fin_str += "\n\n" if opt + 1 == len(menu) + 1 and not updated else "\n\t"
 
-        if not entries + 1 == len(menu) + 1:
-            full_string += "\n\t"
-        else:
-            if not updated:
-                full_string += "\n\n"
     if not updated:
-        full_string += " - Options:\n\n\t4] Update world list"
+        fin_str += " - Options:\n\n\t4] Update world list"
 
-    full_string += "\n\nEnter: "
+    fin_str += "\n\nEnter: "
 
-    return full_string
+    return fin_str
 
 
 def ping_command(url, ping_count):
