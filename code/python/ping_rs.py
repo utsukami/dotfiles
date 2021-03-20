@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 from httplib2 import Http
-from operator import itemgetter
 from os import stat
 from os.path import expanduser
 from pathlib import Path
@@ -13,52 +12,58 @@ from time import time
 file_save = Path(f"{expanduser('~')}/.osrs_worlds.html")
 rsw_url = "http://oldschool.runescape.com/slu?order=WLMPA"
 main_menu = ("All", "Region", "Specific")
-regions = ("United States (East)", "United States (West)",
-           "United Kingdom", "Germany", "Australia")
+regions = (
+    "United States (East)", "United States (West)",
+    "United Kingdom", "Germany", "Australia"
+)
 
 
-def file_get(method, world_file):
-    status, response = Http().request(f"{rsw_url}")
-    data = BeautifulSoup(response, "lxml")
-
+def file_handler(world_file, method, fetch):
     with open(world_file, method) as f:
-        for lines in data.find_all("tr"):
-            f.write(str(lines))
+        if fetch:
+            status, response = Http().request(f"{rsw_url}")
 
-    selector(int(input(menu_construct(main_menu, "Ping types", 1))))
+            for lines in BeautifulSoup(response, "lxml").find_all("tr"):
+                f.write(str(lines))
+
+            selector(menu_construct(main_menu, "Ping types", True))
+        else:
+            return BeautifulSoup(f, "lxml")
 
 
 def menu_construct(menu, whatis, updated):
     fin_str = f"\nSelect:\n - {whatis}:\n\n\t"
 
     for opt in range(1, len(menu) + 1):
-        fin_str += f"{opt}] {menu[opt -1]}"
+        fin_str += f"{opt}] {menu[opt - 1]}"
         fin_str += "\n\n" if opt + 1 == len(menu) + 1 and not updated else "\n\t"
 
     if not updated:
-        fin_str += " - Options:\n\n\t4] Update world list"
+        fin_str += " - Options:\n\n\t4] Update world list\n"
 
-    fin_str += "\n\nEnter: "
+    fin_str += "\nEnter: "
 
-    return fin_str
+    return int(input(fin_str))
 
 
 def ping_command(url, ping_count):
     if (platform == "linux" or
             platform == "darwin"):
-        count_arg = "-c"
-        ping_reg = compile(r"\w+/\w+/\w+/\w+ = (?P<min>\d*[.,]?\d*)/"
-                            "(?P<avg>\d*[.,]?\d*)/(?P<max>\d*[.,]?\d*)")
-
+        ping_arg = "-c"
+        ping_regex = compile(
+            r"\w+/\w+/\w+/\w+ = (?P<min>\d*[.,]?\d*)/(?P<avg>\d*[.,]?\d*)/(?P<max>\d*[.,]?\d*)"
+        )
     elif platform == "win32":
-        count_arg = "-n"
-        ping_reg = compile(r"\w+ = (?P<min>\d+)ms, \w+ = "
-                            "(?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms")
+        ping_arg = "-n"
+        ping_regex = compile(
+            r"\w+ = (?P<min>\d+)ms, \w+ = (?P<max>\d+)ms, \w+ = (?P<avg>\d+)ms"
+        )
 
-    cmd = Popen(["ping", count_arg, str(ping_count),
-                f"{url.replace(' ', '')}.runescape.com"],stdout=PIPE).stdout.read()
+    cmd = Popen(
+        ["ping", ping_arg, str(ping_count), f"oldschool{url}.runescape.com"], stdout=PIPE
+    ).stdout.read()
 
-    form_data = ping_reg.search(str(cmd))
+    form_data = ping_regex.search(str(cmd))
 
     min_ms = int(round(float(form_data.group("min"))))
     max_ms = int(round(float(form_data.group("max"))))
@@ -68,85 +73,73 @@ def ping_command(url, ping_count):
 
 
 def filter_worlds(world_file):
-    filtered_worlds = {}
-
-    with open(world_file) as f:
-        worlds = BeautifulSoup(f, "lxml")
+    worlds = file_handler(world_file, "r", False)
+    wfilter = {}
 
     for info in worlds.find_all("tr"):
         title = info.contents[9].get_text()
 
         for loc in info.find_all("td", attrs={"class": compile("-{2}[A-U].")}):
-            number = loc.find_previous("a")
-            number_filter = number["id"].replace("slu-world-", "")
+            wnum = loc.find_previous("a")["id"].replace("slu-world-", "")
+            full = wnum + ": " + title
 
-            for url in number:
-                url = url.replace(" ","").lower()
-                full_title = number_filter + ": " + title
+            wfilter[full] = {}
+            wfilter[full]["url"] = int(wnum) - 300
+            wfilter[full]["zone"] = loc.get_text()
 
-                filtered_worlds[full_title] = {}
-                filtered_worlds[full_title]["url"] = url
-                filtered_worlds[full_title]["region"] = loc.get_text()
-
-    return filtered_worlds
+    return wfilter
 
 
-def pings(specific, region_choice):
+def pings(specific, regioned):
     for title, info in filter_worlds(file_save).items():
         filter_num = title[0:title.index(":")]
 
         if not specific:
-            start_ping = ping_command(info["url"], 1)
+            if regioned:
+                byreg = regions[0][:13] if regioned <= 2 else regions[regioned - 1]
 
-            if region_choice:
-                if len(regions) >= region_choice >= 1:
-                    ping_region = regions[region_choice - 1]
+                if len(regions) >= regioned >= 1:
+                    if byreg in info["zone"]:
+                        start_ping = ping_command(info["url"], 1)
 
-                    if region_choice <= 2:
-                        ping_region = regions[0][:regions[0].index("(") - 1]
-
-                    if ping_region in info["region"]:
-                        if region_choice <= 2:
-                            if (region_choice == 1
-                                    and int(start_ping[0]) < 75):
-                                print(f"{filter_num}: {start_ping[0]}")
-
-                            elif (region_choice == 2
-                                    and int(start_ping[0]) > 75):
-                                print(f"{filter_num}: {start_ping[0]}")
-                        else:
+                        if regioned >= 3:
+                            print(f"{filter_num}: {start_ping[0]}")
+                        elif (regioned == 1
+                                and int(start_ping[0]) < 75):
+                            print(f"{filter_num}: {start_ping[0]}")
+                        elif (regioned == 2
+                                and int(start_ping[0]) > 75):
                             print(f"{filter_num}: {start_ping[0]}")
             else:
-                print(f"{filter_num}: {start_ping[0]}")
-        else:
-            if specific in filter_num:
-                print(f"\nPinging World {filter_num}..\n")
-                start_ping = ping_command(info["url"], 20)
+                print(f"{filter_num}: {ping_command(info['url'], 1)[0]}")
 
-                print(f"{title}\n Min = {start_ping[0]} MS\n "
-                      f"Max = {start_ping[1]} MS\n Avg = {start_ping[2]} MS\n")
+        elif specific and specific in filter_num:
+            print(f"\nPinging World {filter_num}..\n")
+            start_ping = ping_command(info["url"], 20)
+
+            print(f"{title}\n Min = {start_ping[0]} MS\n "
+                  f"Max = {start_ping[1]} MS\n Avg = {start_ping[2]} MS\n")
 
 
 def selector(selection):
     if selection == 1:
-        pings(None, None)
+        pings(False, False)
     elif selection == 2:
-        pings(None, int(input(menu_construct(regions, "Region", 1))))
+        pings(False, menu_construct(regions, "Region", True))
     elif selection == 3:
-        pings(input("\nEnter world number: "), None)
+        pings(input("\nEnter world number: "), False)
     elif selection == 4:
-        file_get("w+", file_save)
+        file_handler(file_save, "w+", True)
 
 try:
     if file_save.is_file():
         last_updated = round(time() - stat(file_save)[ST_MTIME])
 
         if last_updated > 604800:
-            file_get("w+", file_save)
+            file_handler(file_save, "w+", True)
         else:
-            selector(int(input(menu_construct(main_menu, "Ping types", 0))))
+            selector(menu_construct(main_menu, "Ping types", False))
     else:
-        file_get("a+", file_save)
-
+        file_handler(file_save, "a+", True)
 except (KeyboardInterrupt, ValueError):
     pass
