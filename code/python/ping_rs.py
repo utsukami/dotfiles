@@ -98,18 +98,18 @@ def pings(specific, regioned):
             if regioned:
                 byreg = regions[0][:13] if regioned <= 2 else regions[regioned - 1]
 
-                if len(regions) >= regioned >= 1:
-                    if byreg in info["zone"]:
-                        start_ping = ping_command(info["url"], 1)
+                if (len(regions) >= regioned >= 1
+                      and byreg in info["zone"]):
+                    start_ping = ping_command(info["url"], 1)
 
-                        if regioned >= 3:
-                            print(f"{filter_num}: {start_ping[0]}")
-                        elif (regioned == 1
-                                and int(start_ping[0]) < 75):
-                            print(f"{filter_num}: {start_ping[0]}")
-                        elif (regioned == 2
-                                and int(start_ping[0]) > 75):
-                            print(f"{filter_num}: {start_ping[0]}")
+                    if regioned >= 3:
+                        print(f"{filter_num}: {start_ping[0]}")
+                    elif (int(start_ping[0]) < 75
+                            and regioned == 1):
+                        print(f"{filter_num}: {start_ping[0]}")
+                    elif (int(start_ping[0]) > 75
+                            and regioned == 2):
+                        print(f"{filter_num}: {start_ping[0]}")
             else:
                 print(f"{filter_num}: {ping_command(info['url'], 1)[0]}")
 
