@@ -8,28 +8,28 @@ set $code $HOME/code
 set $java_home _JAVA_OPTIONS=-Duser.home=$HOME/.local/share/runescape
 set $ss_path "media/screenshots/%Y/%F_%T.png"
 
-set $exe_nsi exec --no-startup-id
-set $exe_inf exec_always --no-startup-id
+set $xnsi exec --no-startup-id
+set $xinf exec_always --no-startup-id
 
 set $rofi rofi -location 2 -width 15 -lines 5 -yoffset 32 -show run
 
 #==================================== Launch ==================================#
 # Polybar
-$exe_inf $HOME/.config/polybar/launch.sh
-bindsym $mod+Shift+A $exe_nsi $HOME/.config/polybar/launch.sh
+$xinf $HOME/.config/polybar/launch.sh
+bindsym $mod+Shift+A $xnsi $HOME/.config/polybar/launch.sh
 
 # Compton
-$exe_inf compton --config $HOME/.config/compton.conf -bz
+$xinf compton --config $HOME/.config/compton.conf -bz
 
 # Firefox
-$exe_nsi firefox
+$xnsi firefox
 
 # Discord
-$exe_nsi /opt/discord/Discord
-$exe_nsi disc_notify &
+$xnsi /opt/discord/Discord
+$xnsi disc_notify &
 
 # Modes
-$exe_inf ifmodes&
+$xinf ifmodes&
 
 #================================== Appearance ================================#
 set_from_resource $backgr     background
@@ -52,35 +52,35 @@ gaps bottom 30
 #================================== Controls ==================================#
 #-------------------------------- Applications --------------------------------#
 # Discord
-bindsym $mod+F3 $exe_nsi /opt/discord/Discord
+bindsym $mod+F3 $xnsi /opt/discord/Discord
 
 # Discord link
-#bindcode $mod+Control+61 $exe_nsi sh $code/bash/discord_link.sh
+#bindcode $mod+Control+61 $xnsi sh $code/bash/discord_link.sh
 
 # Firefox
-bindsym $mod+F1 $exe_nsi firefox
+bindsym $mod+F1 $xnsi firefox
 
 # Lockscreen
-bindsym $mod+Control+Delete $exe_nsi sh $code/bash/lock.sh
+bindsym $mod+Control+Delete $xnsi sh $code/bash/lock.sh
 
 # OSRS
-bindsym $mod+F2 $exe_nsi praygame main
-bindsym $mod+F4 $exe_nsi praygame iron
-bindsym $mod+F6 $exe_nsi praygame group
-bindsym $mod+F7 $exe_nsi praygame scythers
-bindsym $mod+Shift+F2 $exe_nsi praygame tob 1
+bindsym $mod+F2 $xnsi praygame main
+bindsym $mod+F4 $xnsi praygame iron
+bindsym $mod+F6 $xnsi praygame group
+bindsym $mod+F7 $xnsi praygame scythers
+bindsym $mod+Shift+F2 $xnsi praygame tob 1
 
 # Rofi
-bindcode $mod+41 $exe_nsi $rofi
+bindcode $mod+41 $xnsi $rofi
 
 # Screenshot
-bindcode --release $mod+30 $exe_nsi scrot -s $HOME/$ss_path
+bindcode --release $mod+30 $xnsi scrot -s $HOME/$ss_path
 
 # Steam
-bindsym $mod+F5 $exe_nsi steam
+bindsym $mod+F5 $xnsi steam
 
 # Terminal
-bindsym $mod+Return $exe_nsi urxvtc
+bindsym $mod+Return $xnsi urxvtc
 
 #--------------------------------- Workspaces ---------------------------------#
 # Assign monitors
@@ -180,27 +180,27 @@ bindsym $mod+Control+5 mode "PoE"
 bindsym $mod+0 mode "PvM"
 
 # Move cursor
-bindsym $mod+Up    $exe_nsi xdotool mousemove_relative -- -0   -500
-bindsym $mod+Left  $exe_nsi xdotool mousemove_relative -- -850 -0
+bindsym $mod+Up    $xnsi xdotool mousemove_relative -- -0   -500
+bindsym $mod+Left  $xnsi xdotool mousemove_relative -- -850 -0
 
-bindsym $mod+Right $exe_nsi xdotool mousemove_relative 850 0
-bindsym $mod+Down  $exe_nsi xdotool mousemove_relative 0   500
+bindsym $mod+Right $xnsi xdotool mousemove_relative 850 0
+bindsym $mod+Down  $xnsi xdotool mousemove_relative 0   500
 
 # Modes
 mode "AHK" {
 	# Row 4 keys (1, 2, 3, 4, 5)
-#	bindcode 10 $exe_nsi sh $code/xdotool/right
-#	bindcode 11 $exe_nsi sh $code/xdotool/menu2
-#	bindcode 12 $exe_nsi sh $code/xdotool/left
+#	bindcode 10 $xnsi sh $code/xdotool/right
+#	bindcode 11 $xnsi sh $code/xdotool/menu2
+#	bindcode 12 $xnsi sh $code/xdotool/left
 
 	# Row 3 keys (' , . P)
-	bindcode 24 $exe_nsi sh $code/xdotool/right
-	bindcode 25 $exe_nsi sh $code/xdotool/menu4
-	bindcode 26 $exe_nsi sh $code/xdotool/left
+	bindcode 24 $xnsi sh $code/xdotool/right
+	bindcode 25 $xnsi sh $code/xdotool/menu4
+	bindcode 26 $xnsi sh $code/xdotool/left
 
-	bindcode 38 $exe_nsi sh $code/xdotool/right
-	bindcode 39 $exe_nsi sh $code/xdotool/menu2
-	bindcode 40 $exe_nsi sh $code/xdotool/left
+	bindcode 38 $xnsi sh $code/xdotool/right
+	bindcode 39 $xnsi sh $code/xdotool/menu2
+	bindcode 40 $xnsi sh $code/xdotool/left
 
 	bindsym $mod+Shift+P restart
 	bindsym $mod+1 workspace 1
@@ -219,9 +219,9 @@ mode "AHK" {
 }
 
 mode "Alt" {
-#	bindcode --release 41 $exe_nsi xdotool key Escape
-#	bindcode 38 $exe_nsi $code/xdotool/save_wrist
-#	bindcode --release 39 $exe_nsi xdotool key F10
+#	bindcode --release 41 $xnsi xdotool key Escape
+#	bindcode 38 $xnsi $code/xdotool/save_wrist
+#	bindcode --release 39 $xnsi xdotool key F10
 	bindsym $mod+i fullscreen toggle
 
 	bindsym $mod+Shift+P restart
@@ -236,10 +236,10 @@ mode "Alt" {
 	bindsym $mod+6 workspace 9
 	bindsym $mod+Tab workspace back_and_forth
 
-	bindcode --release Control+31 $exe_nsi xdotool key Escape
-	#bindcode --release Control+59 $exe_nsi xdotool key 1
-	bindcode --release Control+45 $exe_nsi xdotool key 1
-	bindcode --release Control+60 $exe_nsi xdotool key space
+	bindcode --release Control+31 $xnsi xdotool key Escape
+	#bindcode --release Control+59 $xnsi xdotool key 1
+	bindcode --release Control+45 $xnsi xdotool key 1
+	bindcode --release Control+60 $xnsi xdotool key space
 
 	bindcode Shift+49 mode "default"
 	bindsym $mod+Control+3 mode "default"
@@ -259,8 +259,8 @@ mode "PvM" {
 	bindsym $mod+6 workspace 9
 	bindsym $mod+Tab workspace back_and_forth
 
-	bindcode Control+31 $exe_nsi $code/xdotool/spec 1
-	bindcode Control+60 $exe_nsi $code/xdotool/spec 0
+	bindcode Control+31 $xnsi $code/xdotool/spec 1
+	bindcode Control+60 $xnsi $code/xdotool/spec 0
 
 	bindsym --border button1 nop
 
@@ -320,7 +320,7 @@ mode "PoE" {
 	bindsym $mod+Shift+u kill
 	bindsym $mod+Shift+P restart
 
-	bindcode --release 70 $exe_nsi $code/xdotool/path_commands "exit"
+	bindcode --release 70 $xnsi $code/xdotool/path_commands "exit"
 #	bindsym 4 exec xdotool key Return
 
 	bindcode Shift+49 mode "default"
