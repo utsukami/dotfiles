@@ -1,13 +1,14 @@
 !------------------------------------ Color -----------------------------------!
-#define neon0 #000017
-#define neon1 #222244
-#define neon2 #ff1155
-#define neon3 #88ee77
-#define neon4 #ffee66
-#define neon5 #5577ee
-#define neon6 #8888cc
-#define neon7 #55cccc
-#define neon8 #eceef1
+#define neon0 #00010d
+#define neon1 #32333d
+#define neon2 #981619
+#define neon3 #11a47d
+#define neon4 #f29d52
+#define neon5 #024873
+#define neon6 #bf3952
+#define neon7 #04bfbf
+#define neon8 #f2f2f0
+#define neon9 #00000000
 
 *background : neon0
 *foreground : neon8
@@ -60,18 +61,7 @@ URxvt.tabbed.title      : no
 URxvt.tabbed.new-button : false
 URxvt.tabbed.tabbar-fg  : 7
 URxvt.tabbed.tabbar-bg  : 0
-URxvt.tabbed.tab-fg     : 1
+URxvt.tabbed.tab-fg     : 10
 URxvt.tabbed.tab-bg     : 0
 
 !-----------------------------------  rofi  -----------------------------------!
-rofi.color-enabled   : true
-rofi.separator-style : none
-rofi.font            : Fira Code Medium 11
-rofi.bw              : 2
-rofi.hide-scrollbar  : true
-rofi.terminal        : urxvt
-rofi.lines           : 8
-rofi.color-window    : neon0, neon1, neon8
-
-!                      BG       TEXT     BG ALT   HL BG   HL TXT
-rofi.color-normal    :  neon0,   neon8,   neon0,   neon1,   neon3
