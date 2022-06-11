@@ -1,5 +1,6 @@
 #==================================== Global ==================================#
 # Mod1 = Alt, Mod4 = Super
+set $hyper_mod Mod3
 set $mod Mod4
 
 # Paths/Execs/Commands
@@ -41,8 +42,6 @@ client.focused_inactive  $backgr  $backgr  $backgr  $backgr  $backgr
 client.unfocused         $primar  $primar  $foregr  $primar  $primar
 client.urgent            $primar  $primar  $foregr  $primar  $primar
 
-font pango:Inconsolata 14
-
 smart_borders on
 new_window pixel 2
 
@@ -56,7 +55,7 @@ gaps bottom 30
 bindsym $mod+F3 $exe_nsi /opt/discord/Discord
 
 # Discord link
-bindcode $mod+Control+61 $exe_nsi sh $code/bash/discord_link.sh
+#bindcode $mod+Control+61 $exe_nsi sh $code/bash/discord_link.sh
 
 # Firefox
 bindsym $mod+F1 $exe_nsi firefox
@@ -65,11 +64,11 @@ bindsym $mod+F1 $exe_nsi firefox
 bindsym $mod+Control+Delete $exe_nsi sh $code/bash/lock.sh
 
 # OSRS
-bindsym $mod+F2 $exe_nsi export $java_home/main && praygame
-bindsym $mod+F4 $exe_nsi export $java_home/iron && praygame
-
-bindsym $mod+Shift+F2 $exe_nsi export $java_home/bMain && praygame 1
-bindsym $mod+Shift+F4 $exe_nsi export $java_home/bIron && praygame 1
+bindsym $mod+F2 $exe_nsi praygame main
+bindsym $mod+F4 $exe_nsi praygame iron
+bindsym $mod+F6 $exe_nsi praygame group
+bindsym $mod+F7 $exe_nsi praygame scythers
+bindsym $mod+Shift+F2 $exe_nsi praygame tob 1
 
 # Rofi
 bindcode $mod+41 $exe_nsi $rofi
@@ -88,6 +87,8 @@ bindsym $mod+Return $exe_nsi urxvtc
 workspace 1 output DisplayPort-0
 workspace 2 output DVI-D-0
 workspace 3 output DVI-D-0
+workspace 5 output DVI-D-0
+workspace 6 output DVI-D-0
 
 # Switching
 bindsym $mod+1 workspace 1
@@ -167,13 +168,13 @@ bindsym $mod+Control+s move scratchpad
 bindsym $mod+Control+n scratchpad show
 
 #-------------------------------- Binding Modes -------------------------------#
-# Resize window
 bindcode $mod+40 mode "resize"
 
-# OSRS
 bindsym $mod+Control+1 mode "PvM"
 bindsym $mod+Control+2 mode "AHK"
 bindsym $mod+Control+3 mode "Alt"
+bindsym $mod+Control+4 mode "mah"
+bindsym $mod+Control+5 mode "PoE"
 
 # Used for ifwinactive script
 bindsym $mod+0 mode "PvM"
@@ -188,15 +189,19 @@ bindsym $mod+Down  $exe_nsi xdotool mousemove_relative 0   500
 # Modes
 mode "AHK" {
 	# Row 4 keys (1, 2, 3, 4, 5)
-	bindcode 10 $exe_nsi sh $code/xdotool/right
-	bindcode 11 $exe_nsi sh $code/xdotool/menu2
-	bindcode 12 $exe_nsi sh $code/xdotool/left
-	
+#	bindcode 10 $exe_nsi sh $code/xdotool/right
+#	bindcode 11 $exe_nsi sh $code/xdotool/menu2
+#	bindcode 12 $exe_nsi sh $code/xdotool/left
+
 	# Row 3 keys (' , . P)
 	bindcode 24 $exe_nsi sh $code/xdotool/right
 	bindcode 25 $exe_nsi sh $code/xdotool/menu4
 	bindcode 26 $exe_nsi sh $code/xdotool/left
-	
+
+	bindcode 38 $exe_nsi sh $code/xdotool/right
+	bindcode 39 $exe_nsi sh $code/xdotool/menu2
+	bindcode 40 $exe_nsi sh $code/xdotool/left
+
 	bindsym $mod+Shift+P restart
 	bindsym $mod+1 workspace 1
 	bindsym $mod+2 workspace 2
@@ -209,15 +214,15 @@ mode "AHK" {
 	bindsym $mod+6 workspace 9
 	bindsym $mod+Tab workspace back_and_forth
 
-	bindcode 49 mode "default"
-	bindsym $mod+0 mode "default"
+	bindcode Shift+49 mode "default"
 	bindsym $mod+Control+2 mode "default"
 }
 
 mode "Alt" {
-	bindcode --release 41 $exe_nsi xdotool key Escape
-	bindcode 38 $exe_nsi $code/xdotool/save_wrist
-	bindcode --release 39 $exe_nsi xdotool key F10
+#	bindcode --release 41 $exe_nsi xdotool key Escape
+#	bindcode 38 $exe_nsi $code/xdotool/save_wrist
+#	bindcode --release 39 $exe_nsi xdotool key F10
+	bindsym $mod+i fullscreen toggle
 
 	bindsym $mod+Shift+P restart
 	bindsym $mod+1 workspace 1
@@ -231,8 +236,12 @@ mode "Alt" {
 	bindsym $mod+6 workspace 9
 	bindsym $mod+Tab workspace back_and_forth
 
-	bindcode 49 mode "default"
-	bindsym $mod+0 mode "default"
+	bindcode --release Control+31 $exe_nsi xdotool key Escape
+	#bindcode --release Control+59 $exe_nsi xdotool key 1
+	bindcode --release Control+45 $exe_nsi xdotool key 1
+	bindcode --release Control+60 $exe_nsi xdotool key space
+
+	bindcode Shift+49 mode "default"
 	bindsym $mod+Control+3 mode "default"
 }
 
@@ -253,9 +262,30 @@ mode "PvM" {
 	bindcode Control+31 $exe_nsi $code/xdotool/spec 1
 	bindcode Control+60 $exe_nsi $code/xdotool/spec 0
 
+	bindsym --border button1 nop
+
 	bindcode Shift+49 mode "default"
     bindsym $mod+0 mode "default"
 	bindsym $mod+Control+F1 mode "default"
+}
+
+mode "mah" {
+	bindsym $mod+Shift+P restart
+
+	bindsym $mod+F1 workspace 1
+	bindsym $mod+Escape workspace 2
+	bindsym $mod+F5 workspace 3
+	bindsym $mod+F6 workspace 4
+	bindsym $mod+F4 workspace 5
+	bindsym $mod+6 workspace 6
+	bindsym $mod+6 workspace 7
+	bindsym $mod+6 workspace 8
+	bindsym $mod+6 workspace 9
+	bindsym $mod+Tab workspace back_and_forth
+
+	bindsym --border button1 nop
+
+	bindcode Shift+49 mode "default"
 }
 
 mode "resize" {
@@ -271,6 +301,29 @@ mode "resize" {
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
+}
+
+mode "PoE" {
+	bindsym $mod+1 workspace 1
+	bindsym $mod+2 workspace 2
+	bindsym $mod+3 workspace 3
+	bindsym $mod+4 workspace 4
+	bindsym $mod+5 workspace 5
+	bindsym $mod+6 workspace 6
+	bindsym $mod+7 workspace 7
+	bindsym $mod+8 workspace 8
+	bindsym $mod+9 workspace 9
+	bindsym $mod+Tab workspace back_and_forth
+
+	bindsym $mod+i fullscreen toggle
+	bindsym $mod+Shift+space floating toggle
+	bindsym $mod+Shift+u kill
+	bindsym $mod+Shift+P restart
+
+	bindcode --release 70 $exe_nsi $code/xdotool/path_commands "exit"
+#	bindsym 4 exec xdotool key Return
+
+	bindcode Shift+49 mode "default"
 }
 
 #-------------------------------- Miscellaneous -------------------------------#
@@ -297,7 +350,6 @@ for_window [window_type="menu"] floating enable
 for_window [class="(?i)steam"] floating enable
 for_window [class="(?i)pavucontrol"] floating enable
 for_window [class="Spotify"] move to workspace 6
-for_window [class="Spotify"] floating enable
 for_window [class="keepassxc"] floating enable
 for_window [class="KeePassXC"] floating enable
 for_window [class="net-runelite-client-RuneLite"] border pixel 2
@@ -309,6 +361,9 @@ focus_on_window_activation none
 no_focus [window_role="(?i)"]
 
 # Assign to workspaces
+assign [class="(?i)wowclassic.exe"] workspace 1
 #assign [class="(?i)firefox"] workspace 2
 assign [class="(?i)discord"] workspace 3
-assign [class="(?i)steam"] workspace 4
+#assign [class="(?i)steam"] workspace 4
+assign [class="(?i)keepassxc"] workspace 4
+assign [class="(?i)obs"] workspace 5

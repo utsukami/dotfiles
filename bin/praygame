@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 export PATH=$PATH:$HOME/.local/share/runescape
+export _JAVA_OPTIONS=-Duser.home=$HOME/.local/share/runescape/$1
 
-if [[ ! $1 ]]
+if [[ ! $2 ]]
 then
 	nohup java -jar $HOME/code/java/runelite/runelite-client/target/*-shaded.jar &
 else
-	nohup RuneLite.AppImage &
+	nohup java -jar *Lite.jar
 fi
