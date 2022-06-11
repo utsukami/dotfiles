@@ -1,1 +1,4 @@
-curl https://duckduckgo.com/\?q\=ip\&t\=ffab\&ia\=answer 2>/dev/null | grep -o "maps[\\][\"].\{1,35\}" | grep -o "[>].\{1,35\}[\,]" | sed 's/.$//'
+contain=$(curl -s https://duckduckgo.com/\?q\=ip\&t\=ffab\&ia\=answer 2>/dev/null)
+location=`echo $contain | grep -o '\(\\\">\)\(\w\|\s\)\{1,\}\S\(\w\|\s\)\{1,\}'`
+address=`echo $contain | grep -o '\(\w\{2\}\s[0-9]\+\S\+\)'`
+echo ${location:3} "(${address:3})"

@@ -1,3 +1,2 @@
-xdotool key ctrl+BackSpace;
 sleep 0.1
 xdotool type $1; xdotool key Return;
