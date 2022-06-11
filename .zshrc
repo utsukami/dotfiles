@@ -1,13 +1,21 @@
 #!/bin/zsh
 ## ZSH
+if [ -n "$SSH_CONNECTION" ]; then
+	export DISPLAY=:0
+fi
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
-export PATH="${PATH}:${HOME}/.local/bin/"
+
+autoload -Uz compinit promptinit
+compinit
+promptinit
+
+prompt walters
 
 ZSH_THEME="minimal"
 HYPHEN_INSENSITIVE="true"
 ENABLE_CORRECTION="true"
-HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="%m/%d/%Y"
 
 plugins=(colorize cp git python repo z)
 
@@ -18,14 +26,14 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR=vim
 export WINEESYNC=1
 export PULSE_LATENCY_MSEC=60
-export _JAVA_OPTIONS=-Duser.home=$HOME/.local/share/runescape
+#export _JAVA_OPTIONS=-Duser.home=$HOME/.local/share/runescape
 
 alias ..='cd ..'
 alias ...='cd ../..'
 alias svim='sudo vim'
 alias reboot='sudo reboot'
 alias poweroff='sudo poweroff'
-alias vpno='wg-quick up'
-alias vpnf='wg-quick down'
+alias vpno='sudo wg-quick up'
+alias vpnf='sudo wg-quick down'
 alias streamlinkp='streamlink -p mpv'
 alias njava='nocorrect nohup java'

@@ -1,5 +1,6 @@
 #!/bin/zsh
-eval "$(dbus-launch --sh-syntax --exit-with-session)"
+eval `dbus-launch --sh-syntax --exit-with-session`
+/usr/bin/gentoo-pipewire-launcher &
 
 # load fcitx
 export XMODIFIERS="@im=fcitx"
@@ -13,7 +14,7 @@ xree_path=$HOME/.config/Xresources
 [[ -f ~/.config/Xresources ]] && xrdb $xree_path
 
 # load wallpaper
-nitrogen --restore;
+~/.fehbg &
 
 # load notifications
 dunst &
@@ -21,4 +22,4 @@ fcitx &
 disc_notify &
 urxvtd --quiet --opendisplay --fork &
 
-exec i3
+exec dbus-launch --exit-with-session i3

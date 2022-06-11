@@ -3,3 +3,6 @@
   keycode  12 = F5 F5 F5 F5 F5 F5 XF86Switch_VT_5 F5 F5 XF86Switch_VT_5 F5 F5 F5 F5 XF86Switch_VT_5
   keycode  13 = F6 F6 F6 F6 F6 F6 XF86Switch_VT_6 F6 F6 XF86Switch_VT_6 F6 F6 F6 F6 XF86Switch_VT_6
   keycode  14 = F4 F4 F4 F4 F4 F4 XF86Switch_VT_4 F4 F4 XF86Switch_VT_4 F4 F4 F4 F4 XF86Switch_VT_4
+  keycode  67 = 1 exclam 1 exclam 1 exclam
+  keycode  68 = 2 at 2 at 2 quotedbl
+  keycode  69 = 3 numbersign 3 numbersign 3 numbersign

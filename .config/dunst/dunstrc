@@ -4,7 +4,11 @@
     markup =  full
     sort = yes
     idle_threshold = 10
-    geometry = "150x0+10+40"
+    width = 215
+    height = 100
+    origin = top-left
+    offset = 10x40
+    scale = 0
     alignment = center
     history_length = 20
     show_age_threshold = 500
@@ -20,18 +24,19 @@
     startup_notification = false
     transparency = 15
     frame_width = 2
-    frame_color = "#ff1155"
+    frame_color = "#981619"
+    icon_position = off
 
 [shortcuts]
     close_all = ctrl+space
     history = ctrl+grave
 
 [urgency_low]
-    background = "#19192e"
+    background = "#00010d"
     foreground = "#e1e5ea"
 
 [urgency_normal]
-    background = "#19192e"
+    background = "#00010d"
     foreground = "#e1e5ea"
 
 [urgency_critical]
@@ -39,23 +44,40 @@
     foreground = "#ffffff"
 
 [runelite_main]
-    summary = "RuneLite"
-    body = "*Kokkue*"
-    format = "<b>%s %p</b>\n%b"
+    summary = "RuneLite - Kokkue"
+    format = "<b>RuneLite -\n[Kokkue]</b>\n%b"
     script = main_alert
     urgency = low
 
 [runelite_iron]
-    summary = "RuneLite"
-    body = "*Alch Clues*"
-    format = "<b>%s %p</b>\n%b"
+    summary = "RuneLite - Alch Clues"
+    format = "<b>%s:</b>\n%b"
+    script = iron_alert
+    urgency = normal
+
+[runelite_group]
+    summary = "RuneLite - Muimina"
+    format = "<b>%s:</b>\n%b"
+    script = iron_alert
+    urgency = normal
+
+[runelite_scythers]
+    summary = "RuneLite - Late Dropper"
+    format = "<b>%s:</b>\n%b"
+    script = iron_alert
+    urgency = normal
+
+[runelite-iron-drop]
+    summary = "RuneLite - Alch Clues"
+    body = "You received a highlighted drop*"
+    format = "<b>%s:</b>\nYou received a highlighted drop."
     script = iron_alert
     urgency = normal
 
 [discord]
     appname = discord
-    frame_color = "#5577ee"
-    format = "%i <b>Discord</b>\n%s"
+    frame_color = "#024873"
+    format = "<b>Discord:</b>\n%s"
     urgency = low
 
 [spotify]
